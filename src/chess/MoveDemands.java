@@ -1,7 +1,7 @@
 package chess;
 
 class MoveDemands {
-	enum colourDemand {black, white, noDemand};
+	enum colourDemand {black, white, empty, notCurrentColour};
 	enum movedStatusDemand {notMoved, moved, noDemand};
 	
 	private int xCoordinate;
@@ -18,6 +18,17 @@ class MoveDemands {
 		this.pieceColourNeeded = pieceColourNeeded;
 		this.movedStatusNeeded = movedStatusNeeded;
 	}
+	
+	public boolean equals(Object otherObject) {
+	    if (this == otherObject) return true;
+	    if (!(this.getClass().equals(otherObject.getClass()) )) return false;
+	    MoveDemands otherDemand = (MoveDemands) otherObject;
+	    return (getxCoordinate() == otherDemand.getxCoordinate())
+	        && getyCoordinate() == otherDemand.getyCoordinate()
+	        && getMovedStatusNeeded().equals(otherDemand.getMovedStatusNeeded())
+	        && getPieceColourNeeded().equals(otherDemand.getPieceColourNeeded());
+	  }
+
 	
 	public int getxCoordinate() 
 	{

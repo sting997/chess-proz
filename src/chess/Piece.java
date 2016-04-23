@@ -10,7 +10,7 @@ public abstract class Piece
 	private boolean movedStatus;
 	
 	public abstract boolean validateMove(int fromX, int fromY, int toX, int toY);
-	public abstract Vector<MoveDemands> generateInterveningFields(int fromX, int fromY, int toX, int toY);
+	public abstract ArrayList<MoveDemands> generateInterveningFields(int fromX, int fromY, int toX, int toY);
 
 	protected Piece(pieceColour colour, boolean movedStatus) 
 	{
@@ -38,9 +38,4 @@ public abstract class Piece
 		this.movedStatus = movedStatus;
 	}
 	
-	
-	public static void main(String args[])
-	{
-		System.out.println("Piece");
-	}
 }

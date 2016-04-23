@@ -1,29 +1,29 @@
 package chess;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import static java.lang.Math.*;
+import static chess.MoveDemands.*;
 
 public class King extends Piece {
 
 	public King(pieceColour colour, boolean movedStatus) {
 		super(colour, movedStatus);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public boolean validateMove(int fromX, int fromY, int toX, int toY) {
-		// TODO Auto-generated method stub
-		return false;
+		return abs(fromX - toX) <= 1 && abs(fromY - toY) <= 1;
+		// TODO castling rules need to be added here
 	}
 
 	@Override
-	public Vector<MoveDemands> generateInterveningFields(int fromX, int fromY, int toX, int toY) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public ArrayList<MoveDemands> generateInterveningFields(int fromX, int fromY, int toX, int toY) {
+		ArrayList<MoveDemands> result = new ArrayList<MoveDemands>();
+		MoveDemands demand = new MoveDemands(toX, toY, colourDemand.notCurrentColour, 
+											movedStatusDemand.noDemand);
+		result.add(demand);
+		return result;
+		// TODO castling rules need to be added here
 	}
 
 }
