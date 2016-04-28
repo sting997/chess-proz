@@ -11,16 +11,14 @@ public class Pawn extends Piece {
 
 	@Override
 	public boolean validateMove(int fromX, int fromY, int toX, int toY) {
-		
-		
-		
+		if (fromX != toX)
+			return false;		
 		if(getColour()==pieceColour.white){ 
-			
 			if(getMovedStatus() == false)
 				return (toY-fromY>=-2)  && (toY-fromY<0);
 			else
 				return (toY-fromY>=-1) &&  (toY-fromY<0);
-		}
+			}
 		else{
 			if(getMovedStatus() == false)
 				return (toY-fromY<=2) && (toY-fromY>0);
