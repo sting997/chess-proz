@@ -1,29 +1,29 @@
 package chess;
 
-import java.util.Vector;
+import java.util.ArrayList;
+
+import chess.MoveDemands.colourDemand;
+import chess.MoveDemands.movedStatusDemand;
+
+import static java.lang.Math.*;
 
 public class Knight extends Piece {
 
 	public Knight(pieceColour colour, boolean movedStatus) {
 		super(colour, movedStatus);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public boolean validateMove(int fromX, int fromY, int toX, int toY) {
-		// TODO Auto-generated method stub
-		return false;
+		return (abs(toY - fromY) == 2 && abs(toX - fromX) == 1)
+				|| (abs(toX - fromX) == 2 && abs(toY - fromY) == 1);
 	}
 
 	@Override
-	public Vector<MoveDemands> generateInterveningFields(int fromX, int fromY, int toX, int toY) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<MoveDemands> generateInterveningFields(int fromX, int fromY, int toX, int toY) {
+		ArrayList<MoveDemands> result = new ArrayList<MoveDemands>();
+		MoveDemands demand = new MoveDemands(toX, toY, colourDemand.notCurrentColour, movedStatusDemand.noDemand);
+		result.add(demand);
+		return result;
 	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }
