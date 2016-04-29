@@ -1,17 +1,17 @@
 package chess;
 
 class MoveDemands {
-	enum colourDemand {black, white, empty, notCurrentColour};
-	enum movedStatusDemand {notMoved, moved, noDemand};
+	enum ColourDemand {EMPTY, NOT_CURRENT_COLOUR};
+	enum MovedStatusDemand {NOT_MOVED, NO_DEMAND};
 	
 	private int xCoordinate;
 	private int yCoordinate;
-	private colourDemand pieceColourNeeded;
-	private movedStatusDemand movedStatusNeeded;
+	private ColourDemand pieceColourNeeded;
+	private MovedStatusDemand movedStatusNeeded;
 	
 	
-	public MoveDemands(int xCoordinate, int yCoordinate, colourDemand pieceColourNeeded,
-			movedStatusDemand movedStatusNeeded) 
+	public MoveDemands(int xCoordinate, int yCoordinate, ColourDemand pieceColourNeeded,
+			MovedStatusDemand movedStatusNeeded) 
 	{
 		this.xCoordinate = xCoordinate;
 		this.yCoordinate = yCoordinate;
@@ -40,12 +40,12 @@ class MoveDemands {
 		return yCoordinate;
 	}
 	
-	public colourDemand getPieceColourNeeded() 
+	public ColourDemand getPieceColourNeeded() 
 	{
 		return pieceColourNeeded;
 	}
 	
-	public movedStatusDemand getMovedStatusNeeded() 
+	public MovedStatusDemand getMovedStatusNeeded() 
 	{
 		return movedStatusNeeded;
 	}

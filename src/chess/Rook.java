@@ -5,7 +5,7 @@ import chess.MoveDemands.*;
 
 public class Rook extends Piece {
 
-	public Rook(pieceColour colour, boolean movedStatus) {
+	public Rook(PieceColour colour, boolean movedStatus) {
 		super(colour, movedStatus);
 	}
 
@@ -21,11 +21,11 @@ public class Rook extends Piece {
 			int direction = (toY - fromY > 0) ? 1 : -1;
 			int start = fromY + direction;
 			while (start != toY) {
-				MoveDemands tmp = new MoveDemands(toX, start, colourDemand.empty, movedStatusDemand.noDemand);
+				MoveDemands tmp = new MoveDemands(toX, start, ColourDemand.EMPTY, MovedStatusDemand.NO_DEMAND);
 				result.add(tmp);
 				start += direction;
 			}
-			MoveDemands tmp = new MoveDemands(toX, toY, colourDemand.notCurrentColour, movedStatusDemand.noDemand);
+			MoveDemands tmp = new MoveDemands(toX, toY, ColourDemand.NOT_CURRENT_COLOUR, MovedStatusDemand.NO_DEMAND);
 			result.add(tmp);
 			return result;
 		}
@@ -34,11 +34,11 @@ public class Rook extends Piece {
 			int direction = (toX - fromX > 0) ? 1 : -1;
 			int start = fromX + direction;
 			while (start != toX) {
-				MoveDemands tmp = new MoveDemands(start, toY, colourDemand.empty, movedStatusDemand.noDemand);
+				MoveDemands tmp = new MoveDemands(start, toY, ColourDemand.EMPTY, MovedStatusDemand.NO_DEMAND);
 				result.add(tmp);
 				start += direction;
 			}
-			MoveDemands tmp = new MoveDemands(toX, toY, colourDemand.notCurrentColour, movedStatusDemand.noDemand);
+			MoveDemands tmp = new MoveDemands(toX, toY, ColourDemand.NOT_CURRENT_COLOUR, MovedStatusDemand.NO_DEMAND);
 			result.add(tmp);
 			return result;
 		}

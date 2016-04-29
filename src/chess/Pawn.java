@@ -2,15 +2,15 @@ package chess;
 
 import java.util.ArrayList;
 
-import chess.MoveDemands.colourDemand;
-import chess.MoveDemands.movedStatusDemand;
+import chess.MoveDemands.ColourDemand;
+import chess.MoveDemands.MovedStatusDemand;
 
 import static java.lang.Math.abs;
 
-import static chess.Piece.pieceColour;
+import static chess.Piece.PieceColour;
 public class Pawn extends Piece {
 
-	public Pawn(pieceColour colour, boolean movedStatus) {
+	public Pawn(PieceColour colour, boolean movedStatus) {
 		super(colour, movedStatus);
 		// TODO Auto-generated constructor stub
 	}
@@ -19,7 +19,7 @@ public class Pawn extends Piece {
 	public boolean validateMove(int fromX, int fromY, int toX, int toY) {
 		if (fromX != toX)
 			return false;		
-		if(getColour()==pieceColour.white){ 
+		if(getColour()==PieceColour.WHITE){ 
 			if(getMovedStatus() == false)
 				return (toY-fromY>=-2)  && (toY-fromY<0);
 			else
@@ -40,12 +40,12 @@ public class Pawn extends Piece {
 		int start = fromY;
 		if(abs(toY-fromY)==2){
 			start += direction;
-			MoveDemands tmp = new MoveDemands(toX, start, colourDemand.empty, movedStatusDemand.noDemand);
+			MoveDemands tmp = new MoveDemands(toX, start, ColourDemand.EMPTY, MovedStatusDemand.NO_DEMAND);
 			result.add(tmp);
 		}
 		
 		start += direction;
-		MoveDemands tmp2= new MoveDemands(toX, start, colourDemand.notCurrentColour, movedStatusDemand.noDemand);	
+		MoveDemands tmp2= new MoveDemands(toX, start, ColourDemand.NOT_CURRENT_COLOUR, MovedStatusDemand.NO_DEMAND);	
 		result.add(tmp2);
 		return result;
 		

@@ -4,26 +4,26 @@ import java.util.*;
 import chess.MoveDemands;
 public abstract class Piece 
 {
-	enum pieceColour {black, white};
+	enum PieceColour {BLACK, WHITE};
 	
-	private pieceColour colour;
+	private PieceColour colour;
 	private boolean movedStatus;
 	
 	public abstract boolean validateMove(int fromX, int fromY, int toX, int toY);
 	public abstract ArrayList<MoveDemands> generateInterveningFields(int fromX, int fromY, int toX, int toY);
 
-	protected Piece(pieceColour colour, boolean movedStatus) 
+	protected Piece(PieceColour colour, boolean movedStatus) 
 	{
 		this.colour = colour;
 		this.movedStatus = movedStatus;
 	}
 	
-	public pieceColour getColour() 
+	public PieceColour getColour() 
 	{
 		return colour;
 	}
 	
-	public void setColour(pieceColour colour) 
+	public void setColour(PieceColour colour) 
 	{
 		this.colour = colour;
 	}

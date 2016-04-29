@@ -2,14 +2,14 @@ package chess;
 
 import java.util.ArrayList;
 
-import chess.MoveDemands.colourDemand;
-import chess.MoveDemands.movedStatusDemand;
+import chess.MoveDemands.ColourDemand;
+import chess.MoveDemands.MovedStatusDemand;
 
 import static java.lang.Math.*;
 
 public class Bishop extends Piece {
 
-	public Bishop(pieceColour colour, boolean movedStatus) {
+	public Bishop(PieceColour colour, boolean movedStatus) {
 		super(colour, movedStatus);
 	}
 
@@ -26,11 +26,11 @@ public class Bishop extends Piece {
 
 		for (int x = fromX + directionX, y = fromY + directionY; x != toX
 				&& y != toY; x += directionX, y += directionY) {
-			MoveDemands tmp = new MoveDemands(x, y, colourDemand.empty, movedStatusDemand.noDemand);
+			MoveDemands tmp = new MoveDemands(x, y, ColourDemand.EMPTY, MovedStatusDemand.NO_DEMAND);
 			result.add(tmp);
 		}
 
-		MoveDemands tmp = new MoveDemands(toX, toY, colourDemand.notCurrentColour, movedStatusDemand.noDemand);
+		MoveDemands tmp = new MoveDemands(toX, toY, ColourDemand.NOT_CURRENT_COLOUR, MovedStatusDemand.NO_DEMAND);
 		result.add(tmp);
 		return result;
 	}

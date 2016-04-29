@@ -6,15 +6,15 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import chess.MoveDemands.colourDemand;
-import chess.MoveDemands.movedStatusDemand;
-import chess.Piece.pieceColour;
+import chess.MoveDemands.ColourDemand;
+import chess.MoveDemands.MovedStatusDemand;
+import chess.Piece.PieceColour;
 
 public class KnightTest {
 
 	@Test
 	public void validateMoveTest() {
-		Knight knight = new Knight(pieceColour.black, true);
+		Knight knight = new Knight(PieceColour.BLACK, true);
 		assertEquals(true, knight.validateMove(3, 2, 5, 3));
 		assertEquals(true, knight.validateMove(3, 2, 2, 0));
 		assertEquals(false, knight.validateMove(3, 2, 7, 0));
@@ -22,10 +22,10 @@ public class KnightTest {
 	
 	@Test
 	public void generateInterveningFieldsTest(){
-		Knight knight = new Knight(Piece.pieceColour.black, false);
+		Knight knight = new Knight(Piece.PieceColour.BLACK, false);
 		
-		MoveDemands demand = new MoveDemands(3, 3, colourDemand.notCurrentColour, 
-				movedStatusDemand.noDemand);
+		MoveDemands demand = new MoveDemands(3, 3, ColourDemand.NOT_CURRENT_COLOUR, 
+				MovedStatusDemand.NO_DEMAND);
 		ArrayList<MoveDemands> demands = new ArrayList<MoveDemands>();
 		demands.add(demand);
 	

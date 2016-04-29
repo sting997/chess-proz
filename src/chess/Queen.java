@@ -4,13 +4,13 @@ import static java.lang.Math.abs;
 
 import java.util.ArrayList;
 
-import chess.MoveDemands.colourDemand;
-import chess.MoveDemands.movedStatusDemand;
+import chess.MoveDemands.ColourDemand;
+import chess.MoveDemands.MovedStatusDemand;
 
 
 public class Queen extends Piece {
 
-	public Queen(pieceColour colour, boolean movedStatus) {
+	public Queen(PieceColour colour, boolean movedStatus) {
 		super(colour, movedStatus);
 	}
 
@@ -26,11 +26,11 @@ public class Queen extends Piece {
 			int direction = (toY - fromY > 0) ? 1 : -1;
 			int start = fromY + direction;
 			while (start != toY) {
-				MoveDemands tmp = new MoveDemands(toX, start, colourDemand.empty, movedStatusDemand.noDemand);
+				MoveDemands tmp = new MoveDemands(toX, start, ColourDemand.EMPTY, MovedStatusDemand.NO_DEMAND);
 				result.add(tmp);
 				start += direction;
 			}
-			MoveDemands tmp = new MoveDemands(toX, toY, colourDemand.notCurrentColour, movedStatusDemand.noDemand);
+			MoveDemands tmp = new MoveDemands(toX, toY, ColourDemand.NOT_CURRENT_COLOUR, MovedStatusDemand.NO_DEMAND);
 			result.add(tmp);
 			return result;
 		}
@@ -38,7 +38,7 @@ public class Queen extends Piece {
 			int direction = (toX - fromX > 0) ? 1 : -1;
 			int start = fromX + direction;
 			while (start != toX) {
-				MoveDemands tmp = new MoveDemands(start, toY, colourDemand.empty, movedStatusDemand.noDemand);
+				MoveDemands tmp = new MoveDemands(start, toY, ColourDemand.EMPTY, MovedStatusDemand.NO_DEMAND);
 				result.add(tmp);
 				start += direction;
 			}
@@ -49,11 +49,11 @@ public class Queen extends Piece {
 			for (int x = fromX + directionX, y = fromY + directionY; x != toX
 			&& y != toY; x += directionX, y += directionY) {
 				
-				MoveDemands tmp = new MoveDemands(x, y, colourDemand.empty, movedStatusDemand.noDemand);
+				MoveDemands tmp = new MoveDemands(x, y, ColourDemand.EMPTY, MovedStatusDemand.NO_DEMAND);
 				result.add(tmp);
 			}
 		}
-		MoveDemands tmp = new MoveDemands(toX, toY, colourDemand.notCurrentColour, movedStatusDemand.noDemand);
+		MoveDemands tmp = new MoveDemands(toX, toY, ColourDemand.NOT_CURRENT_COLOUR, MovedStatusDemand.NO_DEMAND);
 		result.add(tmp);
 		return result;
 	}

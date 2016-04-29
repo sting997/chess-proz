@@ -2,14 +2,14 @@ package chess;
 
 import java.util.ArrayList;
 
-import chess.MoveDemands.colourDemand;
-import chess.MoveDemands.movedStatusDemand;
+import chess.MoveDemands.ColourDemand;
+import chess.MoveDemands.MovedStatusDemand;
 
 import static java.lang.Math.*;
 
 public class Knight extends Piece {
 
-	public Knight(pieceColour colour, boolean movedStatus) {
+	public Knight(PieceColour colour, boolean movedStatus) {
 		super(colour, movedStatus);
 	}
 
@@ -22,7 +22,7 @@ public class Knight extends Piece {
 	@Override
 	public ArrayList<MoveDemands> generateInterveningFields(int fromX, int fromY, int toX, int toY) {
 		ArrayList<MoveDemands> result = new ArrayList<MoveDemands>();
-		MoveDemands demand = new MoveDemands(toX, toY, colourDemand.notCurrentColour, movedStatusDemand.noDemand);
+		MoveDemands demand = new MoveDemands(toX, toY, ColourDemand.NOT_CURRENT_COLOUR, MovedStatusDemand.NO_DEMAND);
 		result.add(demand);
 		return result;
 	}
