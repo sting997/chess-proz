@@ -1,6 +1,12 @@
 package chess;
 
 import java.util.ArrayList;
+
+import chess.MoveDemands.colourDemand;
+import chess.MoveDemands.movedStatusDemand;
+
+import static java.lang.Math.abs;
+
 import static chess.Piece.pieceColour;
 public class Pawn extends Piece {
 
@@ -29,7 +35,19 @@ public class Pawn extends Piece {
 
 	@Override
 	public ArrayList<MoveDemands> generateInterveningFields(int fromX, int fromY, int toX, int toY) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<MoveDemands> result = new ArrayList<MoveDemands>();
+		int direction = (toY - fromY > 0) ? 1 : -1;
+		int start = fromY;
+		if(abs(toY-fromY)==2){
+			start += direction;
+			MoveDemands tmp = new MoveDemands(toX, start, colourDemand.empty, movedStatusDemand.noDemand);
+			result.add(tmp);
+		}
+		
+		start += direction;
+		MoveDemands tmp2= new MoveDemands(toX, start, colourDemand.notCurrentColour, movedStatusDemand.noDemand);	
+		result.add(tmp2);
+		return result;
+		
 	}
 }
