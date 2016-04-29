@@ -13,23 +13,23 @@ public class Board {
 		currentColour = PieceColour.WHITE;
 		chessboard = new Piece[8][8];
 		chessboard[0][0] = new Rook(PieceColour.BLACK, false);
-		chessboard[7][0] = new Rook(PieceColour.BLACK, false);
-		chessboard[1][0] = new Knight(PieceColour.BLACK, false);
-		chessboard[6][0] = new Knight(PieceColour.BLACK, false);
-		chessboard[2][0] = new Bishop(PieceColour.BLACK, false);
-		chessboard[5][0] = new Bishop(PieceColour.BLACK, false);
-		chessboard[3][0] = new Queen(PieceColour.BLACK, false);
-		chessboard[4][0] = new King(PieceColour.BLACK, false);
-		chessboard[0][7] = new Rook(PieceColour.WHITE, false);
+		chessboard[0][7] = new Rook(PieceColour.BLACK, false);
+		chessboard[0][1] = new Knight(PieceColour.BLACK, false);
+		chessboard[0][6] = new Knight(PieceColour.BLACK, false);
+		chessboard[0][2] = new Bishop(PieceColour.BLACK, false);
+		chessboard[0][5] = new Bishop(PieceColour.BLACK, false);
+		chessboard[0][3] = new Queen(PieceColour.BLACK, false);
+		chessboard[0][4] = new King(PieceColour.BLACK, false);
+		chessboard[7][0] = new Rook(PieceColour.WHITE, false);
 		chessboard[7][7] = new Rook(PieceColour.WHITE, false);
-		chessboard[1][7] = new Knight(PieceColour.WHITE, false);
-		chessboard[6][7] = new Knight(PieceColour.WHITE, false);
-		chessboard[2][7] = new Bishop(PieceColour.WHITE, false);
-		chessboard[5][7] = new Bishop(PieceColour.WHITE, false);
-		chessboard[3][7] = new Queen(PieceColour.WHITE, false);
-		chessboard[4][7] = new King(PieceColour.WHITE, false);
-		for (int i = 0; i < 8; i++) chessboard[i][1] = new Pawn(PieceColour.BLACK, false);
-		for (int i = 0; i < 8; i++) chessboard[i][6] = new Pawn(PieceColour.WHITE, false);
+		chessboard[7][1] = new Knight(PieceColour.WHITE, false);
+		chessboard[7][6] = new Knight(PieceColour.WHITE, false);
+		chessboard[7][2] = new Bishop(PieceColour.WHITE, false);
+		chessboard[7][5] = new Bishop(PieceColour.WHITE, false);
+		chessboard[7][3] = new Queen(PieceColour.WHITE, false);
+		chessboard[7][4] = new King(PieceColour.WHITE, false);
+		for (int i = 0; i < 8; i++) chessboard[1][i] = new Pawn(PieceColour.BLACK, false);
+		for (int i = 0; i < 8; i++) chessboard[6][i] = new Pawn(PieceColour.WHITE, false);
 	}
 	
 	public boolean validateDemands(ArrayList<MoveDemands> demands) {
