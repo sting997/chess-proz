@@ -7,12 +7,10 @@ import chess.MoveDemands.MovedStatusDemand;
 
 import static java.lang.Math.abs;
 
-import static chess.Piece.PieceColour;
 public class Pawn extends Piece {
 
 	public Pawn(PieceColour colour, boolean movedStatus) {
 		super(colour, movedStatus);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -24,13 +22,13 @@ public class Pawn extends Piece {
 				return (toY-fromY>=-2)  && (toY-fromY<0);
 			else
 				return (toY-fromY>=-1) &&  (toY-fromY<0);
-			}
+		}
 		else{
 			if(getMovedStatus() == false)
 				return (toY-fromY<=2) && (toY-fromY>0);
 			else
 				return (toY-fromY<=1) && (toY-fromY>0);
-			}
+		}
 	} 
 
 	@Override

@@ -15,7 +15,7 @@ public class KnightTest {
 	@Test
 	public void validateMoveTest() {
 		Knight knight = new Knight(PieceColour.BLACK, true);
-		assertEquals(true, knight.validateMove(3, 2, 5, 3));
+		assertEquals(true, knight.validateMove(1, 0, 0, 2));
 		assertEquals(true, knight.validateMove(3, 2, 2, 0));
 		assertEquals(false, knight.validateMove(3, 2, 7, 0));
 	}

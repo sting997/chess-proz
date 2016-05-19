@@ -32,12 +32,24 @@ public class Board {
 		for (int i = 0; i < 8; i++) chessboard[6][i] = new Pawn(PieceColour.WHITE, false);
 	}
 	
-	public boolean validateDemands(ArrayList<MoveDemands> demands) {
-		if (demands.size() == 0) return false;
+	public void setCurrentColour(Piece.PieceColour colour) {
+		currentColour = colour;
+	}
+	
+	public boolean validateMove(Square from, Square to) {
+		int fromX = from.getxCoordinate();
+		int fromY = from.getyCoordinate();
+		int toX = to.getxCoordinate();
+		int toY = to.getyCoordinate();
+		Piece figure = chessboard[fromY][fromX];
+		return figure.validateMove(fromX, fromY, toX, toY)
+				&& validateDemands(figure.generateInterveningFields(fromX, fromY, toX, toY));
+	}
+	
+	private boolean validateDemands(ArrayList<MoveDemands> demands) {
 		for (int i = 0; i < demands.size(); i++)
 			if(! checkColourDemand(demands.get(i)) || !checkMovedStatusDemand(demands.get(i))) 
 				return false;
-		
 		return true;
 	}
 	
@@ -48,10 +60,8 @@ public class Board {
 		ColourDemand colour = demand.getPieceColourNeeded();
 		if (colour == ColourDemand.EMPTY)
 			return chessboard[y][x] == null;
-		
 		else 
-			return chessboard[y][x] != null && chessboard[y][x].getColour() != this.currentColour;
-		
+			return chessboard[y][x] == null || chessboard[y][x].getColour() != this.currentColour;
 	}
 	
 	private boolean checkMovedStatusDemand(MoveDemands demand) {
@@ -60,7 +70,7 @@ public class Board {
 		int y = demand.getyCoordinate();
 		MovedStatusDemand movedStatus = demand.getMovedStatusNeeded();
 		return (movedStatus == MovedStatusDemand.NO_DEMAND) || 
-				(movedStatus == MovedStatusDemand.NOT_MOVED && !(chessboard[y][x].getMovedStatus()));
+				(chessboard[y][x] != null && movedStatus == MovedStatusDemand.NOT_MOVED 
+					&& !(chessboard[y][x].getMovedStatus()));
 	}
-	
 }
