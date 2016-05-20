@@ -7,19 +7,19 @@ public class Square {
 		this.yCoordinate = yCoordinate;
 	}
 	
-	public int getxCoordinate() {
+	public int getX() {
 		return xCoordinate;
 	}
 
-	public int getyCoordinate() {
+	public int getY() {
 		return yCoordinate;
 	}
 	
-	public void setxCoordinate(int xCoordinate) {
+	public void setX(int xCoordinate) {
 		this.xCoordinate = xCoordinate;
 	}
 
-	public void setyCoordinate(int yCoordinate) {
+	public void setY(int yCoordinate) {
 		this.yCoordinate = yCoordinate;
 	}
 

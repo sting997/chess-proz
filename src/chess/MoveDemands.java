@@ -1,8 +1,8 @@
 package chess;
 
-class MoveDemands {
-	enum ColourDemand {EMPTY, NOT_CURRENT_COLOUR};
-	enum MovedStatusDemand {NOT_MOVED, NO_DEMAND};
+public class MoveDemands {
+	public enum ColourDemand {EMPTY, NOT_CURRENT_COLOUR};
+	public enum MovedStatusDemand {NOT_MOVED, NO_DEMAND};
 	
 	private int xCoordinate;
 	private int yCoordinate;

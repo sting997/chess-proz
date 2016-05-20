@@ -1,11 +1,9 @@
-package chess;
+package chessTests;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
-import chess.MoveDemands.ColourDemand;
-import chess.MoveDemands.MovedStatusDemand;
+import chess.*;
 
 public class BoardTest {
 
@@ -15,10 +13,10 @@ public class BoardTest {
 		Square from = new Square(0, 0);
 		Square to = new Square(0, 6);
 		assertEquals(false, board.validateMove(from, to));
-		from.setxCoordinate(1);
-		from.setyCoordinate(0);
-		to.setxCoordinate(0);
-		to.setyCoordinate(2);
+		from.setX(1);
+		from.setY(0);
+		to.setX(0);
+		to.setY(2);
 		assertEquals(true, board.validateMove(from, to));
 	}
 

@@ -1,4 +1,4 @@
-package chess;
+package chessTests;
 
 import static org.junit.Assert.*;
 
@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import chess.MoveDemands.ColourDemand;
 import chess.MoveDemands.MovedStatusDemand;
-
+import chess.*;
 
 public class KingTest {
 	

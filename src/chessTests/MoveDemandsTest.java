@@ -1,9 +1,10 @@
-package chess;
+package chessTests;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 import static chess.MoveDemands.*;
+import chess.*;
 
 public class MoveDemandsTest {
 

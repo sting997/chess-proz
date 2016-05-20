@@ -7,8 +7,6 @@ import chess.MoveDemands.MovedStatusDemand;
 import chess.Piece.PieceColour;
 
 public class Board {
-	private Piece chessboard[][];
-	private Piece.PieceColour currentColour;
 	public Board() {
 		currentColour = PieceColour.WHITE;
 		chessboard = new Piece[8][8];
@@ -37,13 +35,27 @@ public class Board {
 	}
 	
 	public boolean validateMove(Square from, Square to) {
-		int fromX = from.getxCoordinate();
-		int fromY = from.getyCoordinate();
-		int toX = to.getxCoordinate();
-		int toY = to.getyCoordinate();
+		int fromX = from.getX();
+		int fromY = from.getY();
+		int toX = to.getX();
+		int toY = to.getY();
 		Piece figure = chessboard[fromY][fromX];
 		return figure.validateMove(fromX, fromY, toX, toY)
 				&& validateDemands(figure.generateInterveningFields(fromX, fromY, toX, toY));
+	}
+	
+	public void moveFigure(Square from, Square to) {
+		MoveDetails currentMove = new MoveDetails(from, to, chessboard[from.getY()][from.getX()], 
+												  chessboard[to.getY()][to.getX()]);
+		lastMove = currentMove;
+		chessboard[to.getY()][to.getX()] = chessboard[from.getY()][from.getX()];
+		chessboard[from.getY()][from.getX()] = null;
+	}
+	
+	public void undoLastMove() {
+		chessboard[lastMove.getFrom().getY()][lastMove.getFrom().getX()] = lastMove.getMovedFigure();
+		if(lastMove.getKilledFigure() != null)
+			chessboard[lastMove.getTo().getY()][lastMove.getTo().getX()] = lastMove.getKilledFigure();
 	}
 	
 	private boolean validateDemands(ArrayList<MoveDemands> demands) {
@@ -73,4 +85,8 @@ public class Board {
 				(chessboard[y][x] != null && movedStatus == MovedStatusDemand.NOT_MOVED 
 					&& !(chessboard[y][x].getMovedStatus()));
 	}
+	
+	private Piece chessboard[][];
+	private Piece.PieceColour currentColour;
+	private MoveDetails lastMove;
 }

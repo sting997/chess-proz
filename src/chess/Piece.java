@@ -4,7 +4,7 @@ import java.util.*;
 import chess.MoveDemands;
 public abstract class Piece 
 {
-	enum PieceColour {BLACK, WHITE};
+	public enum PieceColour {BLACK, WHITE};
 	
 	private PieceColour colour;
 	private boolean movedStatus;
