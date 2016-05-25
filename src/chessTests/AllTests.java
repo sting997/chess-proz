@@ -7,7 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ KingTest.class, MoveDemandsTest.class, RookTest.class, BishopTest.class,
-				QueenTest.class, KnightTest.class})
+				QueenTest.class, KnightTest.class, PawnTest.class, BoardTest.class})
 public class AllTests {
 
 }

@@ -43,7 +43,7 @@ public class Pawn extends Piece {
 		}
 		
 		start += direction;
-		MoveDemands tmp2= new MoveDemands(toX, start, ColourDemand.NOT_CURRENT_COLOUR, MovedStatusDemand.NO_DEMAND);	
+		MoveDemands tmp2= new MoveDemands(toX, start, createOppositeColourDemand(), MovedStatusDemand.NO_DEMAND);	
 		result.add(tmp2);
 		return result;
 		

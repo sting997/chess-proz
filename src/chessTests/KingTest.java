@@ -30,7 +30,7 @@ public class KingTest {
 	public void generateInterveningFieldsTest(){
 		King king = new King(Piece.PieceColour.BLACK, false);
 		
-		MoveDemands demand = new MoveDemands(3, 3, ColourDemand.NOT_CURRENT_COLOUR, 
+		MoveDemands demand = new MoveDemands(3, 3, ColourDemand.NOT_BLACK, 
 				MovedStatusDemand.NO_DEMAND);
 		ArrayList<MoveDemands> demands = new ArrayList<MoveDemands>();
 		demands.add(demand);

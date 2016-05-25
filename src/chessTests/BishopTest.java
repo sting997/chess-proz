@@ -28,7 +28,7 @@ public class BishopTest {
 		a.add(tmp);
 		tmp = new MoveDemands(4, 4, ColourDemand.EMPTY, MovedStatusDemand.NO_DEMAND);
 		a.add(tmp);
-		tmp = new MoveDemands(5, 5, ColourDemand.NOT_CURRENT_COLOUR, MovedStatusDemand.NO_DEMAND);
+		tmp = new MoveDemands(5, 5, ColourDemand.NOT_BLACK, MovedStatusDemand.NO_DEMAND);
 		a.add(tmp);
 		assertEquals(true, a.equals(bishop.generateInterveningFields(2, 2, 5, 5)));
 	}

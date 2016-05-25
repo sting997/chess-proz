@@ -2,6 +2,7 @@ package chess;
 
 import java.util.*;
 import chess.MoveDemands;
+import chess.MoveDemands.ColourDemand;
 public abstract class Piece 
 {
 	public enum PieceColour {BLACK, WHITE};
@@ -16,6 +17,11 @@ public abstract class Piece
 	{
 		this.colour = colour;
 		this.movedStatus = movedStatus;
+	}
+	
+	protected ColourDemand createOppositeColourDemand () {
+		ColourDemand demand = (colour == PieceColour.WHITE) ? ColourDemand.NOT_WHITE: ColourDemand.NOT_BLACK;
+		return demand;
 	}
 	
 	public PieceColour getColour() 

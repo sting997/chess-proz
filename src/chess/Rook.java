@@ -25,7 +25,7 @@ public class Rook extends Piece {
 				result.add(tmp);
 				start += direction;
 			}
-			MoveDemands tmp = new MoveDemands(toX, toY, ColourDemand.NOT_CURRENT_COLOUR, MovedStatusDemand.NO_DEMAND);
+			MoveDemands tmp = new MoveDemands(toX, toY, createOppositeColourDemand(), MovedStatusDemand.NO_DEMAND);
 			result.add(tmp);
 			return result;
 		}
@@ -38,7 +38,7 @@ public class Rook extends Piece {
 				result.add(tmp);
 				start += direction;
 			}
-			MoveDemands tmp = new MoveDemands(toX, toY, ColourDemand.NOT_CURRENT_COLOUR, MovedStatusDemand.NO_DEMAND);
+			MoveDemands tmp = new MoveDemands(toX, toY, createOppositeColourDemand(), MovedStatusDemand.NO_DEMAND);
 			result.add(tmp);
 			return result;
 		}

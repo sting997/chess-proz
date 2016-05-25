@@ -19,5 +19,13 @@ public class BoardTest {
 		to.setY(2);
 		assertEquals(true, board.validateMove(from, to));
 	}
+	
+	@Test
+	public void countKingThreatsTest(){
+		Board board = new Board();
+		assertEquals(0, board.countKingThreats());
+		board.moveFigure(new Square(3, 0), new Square(3, 7));
+		assertEquals(1, board.countKingThreats());
 
+	}
 }

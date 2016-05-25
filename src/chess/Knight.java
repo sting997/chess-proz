@@ -2,7 +2,6 @@ package chess;
 
 import java.util.ArrayList;
 
-import chess.MoveDemands.ColourDemand;
 import chess.MoveDemands.MovedStatusDemand;
 
 import static java.lang.Math.*;
@@ -22,7 +21,7 @@ public class Knight extends Piece {
 	@Override
 	public ArrayList<MoveDemands> generateInterveningFields(int fromX, int fromY, int toX, int toY) {
 		ArrayList<MoveDemands> result = new ArrayList<MoveDemands>();
-		MoveDemands demand = new MoveDemands(toX, toY, ColourDemand.NOT_CURRENT_COLOUR, MovedStatusDemand.NO_DEMAND);
+		MoveDemands demand = new MoveDemands(toX, toY, createOppositeColourDemand(), MovedStatusDemand.NO_DEMAND);
 		result.add(demand);
 		return result;
 	}

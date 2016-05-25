@@ -29,8 +29,8 @@ public class Bishop extends Piece {
 			MoveDemands tmp = new MoveDemands(x, y, ColourDemand.EMPTY, MovedStatusDemand.NO_DEMAND);
 			result.add(tmp);
 		}
-
-		MoveDemands tmp = new MoveDemands(toX, toY, ColourDemand.NOT_CURRENT_COLOUR, MovedStatusDemand.NO_DEMAND);
+		
+		MoveDemands tmp = new MoveDemands(toX, toY, createOppositeColourDemand(), MovedStatusDemand.NO_DEMAND);
 		result.add(tmp);
 		return result;
 	}

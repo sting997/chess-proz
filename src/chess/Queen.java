@@ -16,7 +16,8 @@ public class Queen extends Piece {
 
 	@Override
 	public boolean validateMove(int fromX, int fromY, int toX, int toY) {
-		return fromX == toX || fromY == toY || abs(toX - fromX) == abs(toY - fromY);
+		return (fromX != toX || fromY != toY)
+				&& (fromX == toX || fromY == toY || abs(toX - fromX) == abs(toY - fromY));
 	}
 
 	@Override
@@ -30,7 +31,7 @@ public class Queen extends Piece {
 				result.add(tmp);
 				start += direction;
 			}
-			MoveDemands tmp = new MoveDemands(toX, toY, ColourDemand.NOT_CURRENT_COLOUR, MovedStatusDemand.NO_DEMAND);
+			MoveDemands tmp = new MoveDemands(toX, toY, createOppositeColourDemand(), MovedStatusDemand.NO_DEMAND);
 			result.add(tmp);
 			return result;
 		}
@@ -53,7 +54,7 @@ public class Queen extends Piece {
 				result.add(tmp);
 			}
 		}
-		MoveDemands tmp = new MoveDemands(toX, toY, ColourDemand.NOT_CURRENT_COLOUR, MovedStatusDemand.NO_DEMAND);
+		MoveDemands tmp = new MoveDemands(toX, toY, createOppositeColourDemand(), MovedStatusDemand.NO_DEMAND);
 		result.add(tmp);
 		return result;
 	}

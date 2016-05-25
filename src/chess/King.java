@@ -12,14 +12,14 @@ public class King extends Piece {
 
 	@Override
 	public boolean validateMove(int fromX, int fromY, int toX, int toY) {
-		return abs(fromX - toX) <= 1 && abs(fromY - toY) <= 1;
+		return (toX != fromX || toY != fromY) && abs(fromX - toX) <= 1 && abs(fromY - toY) <= 1;
 		// TODO castling rules need to be added here
 	}
 
 	@Override
 	public ArrayList<MoveDemands> generateInterveningFields(int fromX, int fromY, int toX, int toY) {
 		ArrayList<MoveDemands> result = new ArrayList<MoveDemands>();
-		MoveDemands demand = new MoveDemands(toX, toY, ColourDemand.NOT_CURRENT_COLOUR, 
+		MoveDemands demand = new MoveDemands(toX, toY, createOppositeColourDemand(), 
 											MovedStatusDemand.NO_DEMAND);
 		result.add(demand);
 		return result;
