@@ -15,13 +15,13 @@ public class Pawn extends Piece {
 
 	@Override
 	public boolean validateMove(int fromX, int fromY, int toX, int toY) {
-		if (fromX != toX)
+		if (fromX - toX > 1 || fromX - toX < -1)
 			return false;		
 		if(getColour()==PieceColour.WHITE){ 
 			if(getMovedStatus() == false)
 				return (toY-fromY>=-2)  && (toY-fromY<0);
 			else
-				return (toY-fromY>=-1) &&  (toY-fromY<0);
+				return (toY-fromY>=-1) &&  (toY-fromY<0) ;
 		}
 		else{
 			if(getMovedStatus() == false)
@@ -34,18 +34,23 @@ public class Pawn extends Piece {
 	@Override
 	public ArrayList<MoveDemands> generateInterveningFields(int fromX, int fromY, int toX, int toY) {
 		ArrayList<MoveDemands> result = new ArrayList<MoveDemands>();
-		int direction = (toY - fromY > 0) ? 1 : -1;
-		int start = fromY;
-		if(abs(toY-fromY)==2){
-			start += direction;
-			MoveDemands tmp = new MoveDemands(toX, start, ColourDemand.EMPTY, MovedStatusDemand.NO_DEMAND);
-			result.add(tmp);
+		if (toX != fromX) {
+			ColourDemand demand = (getColour() == PieceColour.WHITE) ? ColourDemand.BLACK : ColourDemand.WHITE;
+			result.add(new MoveDemands(toX, toY, demand, MovedStatusDemand.NO_DEMAND));
 		}
-		
-		start += direction;
-		MoveDemands tmp2= new MoveDemands(toX, start, createOppositeColourDemand(), MovedStatusDemand.NO_DEMAND);	
-		result.add(tmp2);
+		else {
+			int direction = (toY - fromY > 0) ? 1 : -1;
+			int start = fromY;
+			if(abs(toY-fromY)==2){
+				start += direction;
+				MoveDemands tmp = new MoveDemands(toX, start, ColourDemand.EMPTY, MovedStatusDemand.NO_DEMAND);
+				result.add(tmp);
+			}
+			
+			start += direction;
+			MoveDemands tmp2= new MoveDemands(toX, start, createOppositeColourDemand(), MovedStatusDemand.NO_DEMAND);	
+			result.add(tmp2);
+		}
 		return result;
-		
 	}
 }

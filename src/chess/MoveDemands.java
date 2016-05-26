@@ -1,7 +1,7 @@
 package chess;
 
 public class MoveDemands {
-	public enum ColourDemand {EMPTY, NOT_WHITE, NOT_BLACK};
+	public enum ColourDemand {EMPTY, NOT_WHITE, NOT_BLACK, BLACK, WHITE};
 	public enum MovedStatusDemand {NOT_MOVED, NO_DEMAND};
 	
 	private int xCoordinate;

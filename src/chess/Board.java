@@ -41,7 +41,7 @@ public class Board {
 	 * @return true if managed to execute move
 	 */
 	public boolean tryAndExecuteMove(Square from, Square to) {
-		if (chessboard[from.getY()][from.getX()].getColour() != currentColour) return false;
+		if (chessboard[from.getY()][from.getX()] == null || chessboard[from.getY()][from.getX()].getColour() != currentColour) return false;
 		if (!validateMove(from, to)) return false;
 		moveFigure(from, to);
 		if (countKingThreats() > 0) {
@@ -52,6 +52,10 @@ public class Board {
 		changeCurrentColour();
 		currentKingThreat = null;
 		return true;
+	}
+	
+	public boolean examineFigureOwner(Square s) {
+		return chessboard[s.getY()][s.getX()] != null && chessboard[s.getY()][s.getX()].getColour() == currentColour;		
 	}
 	
 	/**
@@ -240,6 +244,10 @@ public class Board {
 			return chessboard[y][x] == null;
 		else if (colour == ColourDemand.NOT_BLACK)
 			return chessboard[y][x] == null || chessboard[y][x].getColour() != PieceColour.BLACK;
+		else if (colour == ColourDemand.BLACK)
+			return chessboard[y][x] != null && chessboard[y][x].getColour() == PieceColour.BLACK;
+		else if (colour == ColourDemand.WHITE)
+			return chessboard[y][x] != null && chessboard[y][x].getColour() == PieceColour.WHITE;
 		else
 			return chessboard[y][x] == null || chessboard[y][x].getColour() != PieceColour.WHITE;
 	}
