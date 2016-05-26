@@ -11,7 +11,7 @@ public class Rook extends Piece {
 
 	@Override
 	public boolean validateMove(int fromX, int fromY, int toX, int toY) {
-		return fromX == toX || fromY == toY;
+		return (fromX != toX || fromY != toY) && (fromX == toX || fromY == toY);
 	}
 
 	@Override

@@ -28,14 +28,88 @@ public class Board {
 		chessboard[7][4] = new King(PieceColour.WHITE, false);
 		for (int i = 0; i < 8; i++) chessboard[1][i] = new Pawn(PieceColour.BLACK, false);
 		for (int i = 0; i < 8; i++) chessboard[6][i] = new Pawn(PieceColour.WHITE, false);
-		blackKingPostition = new Square(4, 0);
+		blackKingPosition = new Square(4, 0);
 		whiteKingPosition = new Square(4, 7);
+	}
+	
+	/**
+	 * Tries to execute move, this method provides
+	 * ultimate answer from the board and if it is possible makes move
+	 * @param from source field
+	 * @param to destination field
+	 * @return true if managed to execute move
+	 */
+	public boolean tryAndExecuteMove(Square from, Square to) {
+		if (chessboard[from.getY()][from.getX()].getColour() != currentColour) return false;
+		if (!validateMove(from, to)) return false;
+		moveFigure(from, to);
+		if (countKingThreats() > 0) {
+			undoLastMove();
+			return false;
+		}
+		chessboard[to.getY()][to.getX()].setMovedStatus(true);
+		changeCurrentColour();
+		return true;
+	}
+	
+	/**
+	 * Checks if current player has lost the game and cannot escape check
+	 * @return true if the game is over and player cannot move
+	 */
+	public boolean checkmateExaminator() {
+		int threats = countKingThreats();
+		if (threats == 2) { //the only escape is king moving
+			Square currentKingSquare = (currentColour == PieceColour.WHITE) ? whiteKingPosition : blackKingPosition;
+			for (int i = -1; i < 2; i++)
+				for (int j = -1; j < 2; j++){
+					if(currentKingSquare.getX() + j >= 0 && currentKingSquare.getX() + j < 8 && currentKingSquare.getY() + i >= 0 && currentKingSquare.getY() + i < 8){
+						Square possibleKingDestination = new Square(currentKingSquare.getX() + j, currentKingSquare.getY() + i);
+						if (tryMove(currentKingSquare, possibleKingDestination)) 
+							return false;
+					}
+				}
+			return true;
+		}
+		else if (threats == 1) {
+			Square currentKingSquare = (currentColour == PieceColour.WHITE) ? whiteKingPosition : blackKingPosition;
+			for (int i = -1; i < 2; i++)
+				for (int j = -1; j < 2; j++){
+					if(currentKingSquare.getX() + j >= 0 && currentKingSquare.getX() + j < 8 && currentKingSquare.getY() + i >= 0 && currentKingSquare.getY() + i < 8){
+						Square possibleKingDestination = new Square(currentKingSquare.getX() + j, currentKingSquare.getY() + i);
+						if (tryMove(currentKingSquare, possibleKingDestination)) 
+							{System.out.println(possibleKingDestination.getX() + " " +possibleKingDestination.getY());
+							return false;}
+					}
+				}
+			// TODO implement escaping checkmate by blocking attack by one of the figures or killing attacking figure
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Method used to check if tested move follows all the rules, checks what the situation on the chessboard
+	 * will look like after making the move, but then restores previous state of the board
+	 * @param from
+	 * @param to
+	 * @return true if inspected move follows all chess rules
+	 */
+	private boolean tryMove(Square from, Square to) {
+		if (chessboard[from.getY()][from.getX()].getColour() != currentColour) return false;
+		if (!validateMove(from, to)) return false;
+		moveFigure(from, to);
+		if (countKingThreats() > 0) {
+			undoLastMove();
+			return false;
+		}
+		undoLastMove();
+		return true;
 	}
 	
 	/**
 	 * changes current colour to opposite value
 	 */
-	public void changeCurrentColour() {
+	private void changeCurrentColour() {
 		currentColour = (currentColour == PieceColour.WHITE) ? PieceColour.BLACK : PieceColour.WHITE;
 	}
 	
@@ -43,12 +117,12 @@ public class Board {
 	 * counts all opponent's figures that attack current players king
 	 * @return
 	 */
-	public int countKingThreats() {
+	private int countKingThreats() {
 		int count = 0;
-		Square attackedSquare = (currentColour == PieceColour.WHITE) ? whiteKingPosition : blackKingPostition;
+		Square attackedSquare = (currentColour == PieceColour.WHITE) ? whiteKingPosition : blackKingPosition;
 		for (int i = 0 ; i < 8; i++){
 			for (int j = 0; j < 8; j++){
-					if(chessboard[i][j] != null && validateMove(new Square(j, i), attackedSquare))
+					if(chessboard[i][j] != null && chessboard[i][j].getColour() != currentColour && validateMove(new Square(j, i), attackedSquare))
 						count++;
 			}
 		}
@@ -56,18 +130,19 @@ public class Board {
 	}
 	
 	/**
-	 * checks if move is valid and follows rules
+	 * checks only if move is valid and follows rules, does not check situation on the board
+	 * after this partcular move
 	 * @param from : source square for the validated move
 	 * @param to : destination square
 	 * @return true if move is valid from figure and board perspective
 	 */
-	public boolean validateMove(Square from, Square to) {
+	private boolean validateMove(Square from, Square to) {
 		int fromX = from.getX();
 		int fromY = from.getY();
 		int toX = to.getX();
 		int toY = to.getY();
 		Piece figure = chessboard[fromY][fromX];
-		return figure.validateMove(fromX, fromY, toX, toY)
+		return figure != null && figure.validateMove(fromX, fromY, toX, toY)
 				&& validateDemands(figure.generateInterveningFields(fromX, fromY, toX, toY));
 	}
 	
@@ -76,21 +151,29 @@ public class Board {
 	 * @param from : source square for move
 	 * @param to : destination square
 	 */
-	public void moveFigure(Square from, Square to) {
+	private void moveFigure(Square from, Square to) {
 		MoveDetails currentMove = new MoveDetails(from, to, chessboard[from.getY()][from.getX()], 
 												  chessboard[to.getY()][to.getX()]);
 		lastMove = currentMove;
 		chessboard[to.getY()][to.getX()] = chessboard[from.getY()][from.getX()];
 		chessboard[from.getY()][from.getX()] = null;
+		if(currentColour == PieceColour.BLACK && blackKingPosition.getX() == from.getX() && blackKingPosition.getY() == from.getY())
+			blackKingPosition = to;
+		else if(currentColour == PieceColour.WHITE && whiteKingPosition.getX() == from.getX() && whiteKingPosition.getY() == from.getY())
+			whiteKingPosition = to;
 	}
 	
 	/**
 	 * changes the chessboard to the state before last move
 	 */
-	public void undoLastMove() {
+	private void undoLastMove() {
 		chessboard[lastMove.getFrom().getY()][lastMove.getFrom().getX()] = lastMove.getMovedFigure();
 		if(lastMove.getKilledFigure() != null)
 			chessboard[lastMove.getTo().getY()][lastMove.getTo().getX()] = lastMove.getKilledFigure();
+		if(currentColour == PieceColour.BLACK && blackKingPosition.getX() == lastMove.getTo().getX() && blackKingPosition.getY() == lastMove.getTo().getY())
+			blackKingPosition = lastMove.getFrom();
+		if(currentColour == PieceColour.WHITE && whiteKingPosition.getX() == lastMove.getTo().getX() && whiteKingPosition.getY() == lastMove.getTo().getY())
+			whiteKingPosition = lastMove.getFrom();
 	}
 	
 	/**
@@ -139,6 +222,6 @@ public class Board {
 	private Piece chessboard[][];
 	private Piece.PieceColour currentColour;
 	private MoveDetails lastMove;
-	private Square blackKingPostition;
+	private Square blackKingPosition;
 	private Square whiteKingPosition;
 }
