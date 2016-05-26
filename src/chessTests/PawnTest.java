@@ -38,7 +38,7 @@ public class PawnTest {
 public void generateInterveningFieldstest1(){
 		
 		Pawn whitePawn = new Pawn(PieceColour.WHITE, true); 
-		MoveDemands demand = new MoveDemands(3, 3,ColourDemand.NOT_WHITE, MovedStatusDemand.NO_DEMAND); 
+		MoveDemands demand = new MoveDemands(3, 3,ColourDemand.EMPTY, MovedStatusDemand.NO_DEMAND); 
 		ArrayList<MoveDemands> demands = new ArrayList<MoveDemands>() ;	
 		demands.add(demand);
 		assertEquals(true, whitePawn.generateInterveningFields(3, 2, 3, 3).equals(demands));
@@ -51,7 +51,7 @@ public void generateInterveningFieldstest2(){
 		Pawn whitePawn = new Pawn(PieceColour.WHITE, false); 
 		ArrayList<MoveDemands> demands = new ArrayList<MoveDemands>() ;	
 		MoveDemands demand_1 = new MoveDemands(3, 3,ColourDemand.EMPTY, MovedStatusDemand.NO_DEMAND); 
-		MoveDemands demand_2 = new MoveDemands(3, 4,ColourDemand.NOT_WHITE, MovedStatusDemand.NO_DEMAND); 
+		MoveDemands demand_2 = new MoveDemands(3, 4,ColourDemand.EMPTY, MovedStatusDemand.NO_DEMAND); 
 		demands.add(demand_1);
 		demands.add(demand_2);
 		assertEquals(true, whitePawn.generateInterveningFields(3, 2, 3, 4).equals(demands));
@@ -63,7 +63,7 @@ public void generateInterveningFieldstest3(){
 		Pawn whitePawn = new Pawn(PieceColour.WHITE, false); 
 		ArrayList<MoveDemands> demands = new ArrayList<MoveDemands>() ;	
 		MoveDemands demand_1 = new MoveDemands(3, 5,ColourDemand.EMPTY, MovedStatusDemand.NO_DEMAND); 
-		MoveDemands demand_2 = new MoveDemands(3, 4,ColourDemand.NOT_WHITE, MovedStatusDemand.NO_DEMAND); 
+		MoveDemands demand_2 = new MoveDemands(3, 4,ColourDemand.EMPTY, MovedStatusDemand.NO_DEMAND); 
 		demands.add(demand_1);
 		demands.add(demand_2);
 		assertEquals(true, whitePawn.generateInterveningFields(3, 6, 3, 4).equals(demands));

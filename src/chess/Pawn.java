@@ -14,20 +14,18 @@ public class Pawn extends Piece {
 	}
 
 	@Override
-	public boolean validateMove(int fromX, int fromY, int toX, int toY) {
-		if (fromX - toX > 1 || fromX - toX < -1)
-			return false;		
+	public boolean validateMove(int fromX, int fromY, int toX, int toY) {	
 		if(getColour()==PieceColour.WHITE){ 
 			if(getMovedStatus() == false)
-				return (toY-fromY>=-2)  && (toY-fromY<0);
+				return ((fromY - toY == 2) || (fromY - toY == 1))  && (toX == fromX);
 			else
-				return (toY-fromY>=-1) &&  (toY-fromY<0) ;
+				return (fromY - toY == 1) && abs(toX - fromX) <= 1;
 		}
 		else{
 			if(getMovedStatus() == false)
-				return (toY-fromY<=2) && (toY-fromY>0);
+				return ((toY - fromY == 2) || (toY - fromY == 1)) && (toX == fromX);
 			else
-				return (toY-fromY<=1) && (toY-fromY>0);
+				return (toY - fromY == 1) && abs(toY - fromY) <= 1;
 		}
 	} 
 
@@ -48,7 +46,7 @@ public class Pawn extends Piece {
 			}
 			
 			start += direction;
-			MoveDemands tmp2= new MoveDemands(toX, start, createOppositeColourDemand(), MovedStatusDemand.NO_DEMAND);	
+			MoveDemands tmp2= new MoveDemands(toX, start, ColourDemand.EMPTY, MovedStatusDemand.NO_DEMAND);	
 			result.add(tmp2);
 		}
 		return result;
