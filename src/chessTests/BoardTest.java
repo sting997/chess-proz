@@ -59,6 +59,24 @@ public class BoardTest {
 		assertEquals(true, board.tryAndExecuteMove(new Square(1, 4), new Square(1, 5)));
 		assertEquals(false, board.checkmateExaminator());
 		assertEquals(true, board.tryAndExecuteMove(new Square(5, 5), new Square(5, 1)));
-		assertEquals(true, board.checkmateExaminator());		
+		assertEquals(true, board.checkmateExaminator());
+		assertEquals(false, board.tryAndExecuteMove(new Square(0, 1), new Square(0, 2)));
+	}
+	
+	@Test
+	public void checkmateExaminatorTest2(){
+		Board board = new Board();
+		assertEquals(false, board.checkmateExaminator());
+		assertEquals(true, board.tryAndExecuteMove(new Square(4, 6), new Square(4, 4)));
+		assertEquals(false, board.checkmateExaminator());
+		assertEquals(true, board.tryAndExecuteMove(new Square(5, 1), new Square(5, 2)));
+		assertEquals(false, board.checkmateExaminator());
+		assertEquals(true, board.tryAndExecuteMove(new Square(3, 7), new Square(7, 3)));
+		assertEquals(false, board.checkmateExaminator());
+		assertEquals(false, board.tryAndExecuteMove(new Square(4, 1), new Square(4, 2)));
+		assertEquals(false, board.tryAndExecuteMove(new Square(4, 0), new Square(5, 1)));
+		assertEquals(true, board.tryAndExecuteMove(new Square(6, 1), new Square(6, 2)));
+		
+		
 	}
 }
