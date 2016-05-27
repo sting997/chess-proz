@@ -31,6 +31,7 @@ public class Board {
 		blackKingPosition = new Square(4, 0);
 		whiteKingPosition = new Square(4, 7);
 		currentKingThreat = null;
+		MoveDetails lastMove = null;
 	}
 	
 	/**
@@ -49,6 +50,7 @@ public class Board {
 			return false;
 		}
 		chessboard[to.getY()][to.getX()].setMovedStatus(true);
+		lastMove = new MoveDetails(from, to);
 		changeCurrentColour();
 		currentKingThreat = null;
 		return true;
@@ -83,6 +85,10 @@ public class Board {
 		}
 		else //there is no threat for king
 			return false;
+	}
+	
+	public MoveDetails getLastMove() {
+		return lastMove;
 	}
 	
 	/**

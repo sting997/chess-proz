@@ -9,6 +9,11 @@ public class MoveDetails {
 		this.killedFigure = killedFigure;
 	}
 	
+	public MoveDetails(Square from, Square to){
+		this.from = from;
+		this.to = to;
+	}
+	
 	public Square getFrom() {
 		return from;
 	}

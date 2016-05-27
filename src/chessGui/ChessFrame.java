@@ -23,13 +23,10 @@ public class ChessFrame extends JFrame{
 	private Color color1 = Color.WHITE;
 	private Color color2 = new Color(139, 69, 19);
 	private Board board;
-	private Square from;
-	private Square to;
-	private boolean fromTaken;
+	
 			
 	public ChessFrame(Board b){
 		board = b;
-		fromTaken = false;
 		Color current = color2;
 		buttonPanel = new JPanel(new GridLayout(8, 8));
 		buttonPanel.setBackground(Color.BLACK);
@@ -40,7 +37,6 @@ public class ChessFrame extends JFrame{
 				if (i == 1) chessBoard[i][j] = new ChessButton(DEFAULT_BUTTON_SIZE, current, new ImageIcon("img/bp.png"));
 				else if (i == 6) chessBoard[i][j] = new ChessButton(DEFAULT_BUTTON_SIZE, current, new ImageIcon("img/wp.png"));
 			    else chessBoard[i][j] = new ChessButton(DEFAULT_BUTTON_SIZE, current);
-				chessBoard[i][j].addActionListener(new ButtonAction(new Square(j, i)));
 				current = (current == color1) ? color2 : color1;
 				buttonPanel.add(chessBoard[i][j]);
 			}
@@ -67,30 +63,13 @@ public class ChessFrame extends JFrame{
 		setIconImage(new ImageIcon("img/wk.png").getImage());
 	}
 	
-	private class ButtonAction implements ActionListener{
-		public ButtonAction(Square square){
-			position = square;
-		}
-		public void actionPerformed(ActionEvent e) {
-			if (!fromTaken && board.examineFigureOwner(position)) {
-				from = position;
-				fromTaken = true;
-			}
-			else if (fromTaken){
-				to = position;
-				if (board.tryAndExecuteMove(from, to)){
-					chessBoard[to.getY()][to.getX()].setIcon(chessBoard[from.getY()][from.getX()].getIcon());
-					chessBoard[from.getY()][from.getX()].setIcon(null);
-				}
-				fromTaken = false;
-			}
-			else fromTaken = false;
-			
-			if(board.checkmateExaminator()){
-				setVisible(false);
-				dispose();
-			}
-		}
-		private Square position;
+	public void addActionListener(int i, int j, ActionListener listener) {
+		chessBoard[i][j].addActionListener(listener);
 	}
+	
+	public void drawMove(Square from, Square to) {
+		chessBoard[to.getY()][to.getX()].setIcon(chessBoard[from.getY()][from.getX()].getIcon());
+		chessBoard[from.getY()][from.getX()].setIcon(null);
+	}
+	
 }
