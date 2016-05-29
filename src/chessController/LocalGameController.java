@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import chess.Board;
 import chess.Square;
 import chessGui.ChessFrame;
+import chessGui.WinnerFrame;
 
 public class LocalGameController {
 	private ChessFrame frame;
@@ -13,6 +14,7 @@ public class LocalGameController {
 	private Square from;
 	private Square to;
 	private boolean fromTaken;
+	private WinnerFrame  Wframe;
 	public LocalGameController(ChessFrame view, Board model) {
 		frame = view;
 		board = model;
@@ -41,10 +43,15 @@ public class LocalGameController {
 			else fromTaken = false;
 			
 			if(board.checkmateExaminator()){
+				Wframe = new WinnerFrame(board.getCurrentColour());
+				Wframe.setVisible(true);
+				Wframe.setLocationRelativeTo(frame);
 				frame.setVisible(false);
 				frame.dispose();
 			}
 		}
 		private Square position;
 	}
+
 }
+

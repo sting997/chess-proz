@@ -5,11 +5,10 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import chess.Board;
+import chess.Piece;
 import chess.Square;
 
 public class ChessFrame extends JFrame{
@@ -23,21 +22,22 @@ public class ChessFrame extends JFrame{
 	private Color color1 = Color.WHITE;
 	private Color color2 = new Color(139, 69, 19);
 	private Board board;
-	
-			
+
 	public ChessFrame(Board b){
 		board = b;
 		Color current = color2;
-		buttonPanel = new JPanel(new GridLayout(8, 8));
-		buttonPanel.setBackground(Color.BLACK);
-		add(buttonPanel);
+        buttonPanel = new JPanel(new GridLayout(8, 8));
+        buttonPanel.setBackground(Color.BLACK);
+        add(buttonPanel);
+
+
 		for (int i = 0; i < 8; i++){
 			current = (current == color1) ? color2 : color1;
-			for (int j = 0; j < 8; j++){ 
+			for (int j = 0; j < 8; j++){
 				if (i == 1) chessBoard[i][j] = new ChessButton(DEFAULT_BUTTON_SIZE, current, new ImageIcon("img/bp.png"));
 				else if (i == 6) chessBoard[i][j] = new ChessButton(DEFAULT_BUTTON_SIZE, current, new ImageIcon("img/wp.png"));
 			    else chessBoard[i][j] = new ChessButton(DEFAULT_BUTTON_SIZE, current);
-				current = (current == color1) ? color2 : color1;
+                current = (current == color1) ? color2 : color1;
 				buttonPanel.add(chessBoard[i][j]);
 			}
 		}
@@ -71,5 +71,5 @@ public class ChessFrame extends JFrame{
 		chessBoard[to.getY()][to.getX()].setIcon(chessBoard[from.getY()][from.getX()].getIcon());
 		chessBoard[from.getY()][from.getX()].setIcon(null);
 	}
-	
+
 }

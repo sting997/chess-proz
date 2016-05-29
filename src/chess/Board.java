@@ -33,7 +33,11 @@ public class Board {
 		currentKingThreat = null;
 		MoveDetails lastMove = null;
 	}
-	
+
+	public PieceColour getCurrentColour() {
+		return currentColour;
+	}
+
 	/**
 	 * Tries to execute move, this method provides
 	 * ultimate answer from the board and if it is possible makes move
@@ -55,11 +59,11 @@ public class Board {
 		currentKingThreat = null;
 		return true;
 	}
-	
+
 	public boolean examineFigureOwner(Square s) {
-		return chessboard[s.getY()][s.getX()] != null && chessboard[s.getY()][s.getX()].getColour() == currentColour;		
+		return chessboard[s.getY()][s.getX()] != null && chessboard[s.getY()][s.getX()].getColour() == currentColour;
 	}
-	
+
 	/**
 	 * Checks if current player has lost the game and cannot escape check
 	 * @return true if the game is over and player cannot move
@@ -86,11 +90,11 @@ public class Board {
 		else //there is no threat for king
 			return false;
 	}
-	
+
 	public MoveDetails getLastMove() {
 		return lastMove;
 	}
-	
+
 	/**
 	 * Tries to move king
 	 * @return true if king cannot be moved
@@ -107,7 +111,7 @@ public class Board {
 			}
 		return true;
 	}
-	
+
 	/**
 	 * tries to kill currentKingThreat
 	 * @param killingFigure
@@ -116,7 +120,7 @@ public class Board {
 	private boolean examineIfThreadCanBeKilled(Square killingFigure) {
 		return tryMove(killingFigure, currentKingThreat);
 	}
-	
+
 	/**
 	 * examines if current thread can be blocked by blockingFigure
 	 * @param blockingFigure
@@ -124,8 +128,8 @@ public class Board {
 	 */
 	private boolean examineIfThreatCanBeBlocked(Square blockingFigure) {
 		Square currentKingSquare = (currentColour == PieceColour.WHITE) ? whiteKingPosition : blackKingPosition;
-		ArrayList<MoveDemands> demands = 
-				chessboard[currentKingThreat.getY()][currentKingThreat.getX()].generateInterveningFields(currentKingThreat.getX(), currentKingThreat.getY(), 
+		ArrayList<MoveDemands> demands =
+				chessboard[currentKingThreat.getY()][currentKingThreat.getX()].generateInterveningFields(currentKingThreat.getX(), currentKingThreat.getY(),
 																										currentKingSquare.getX(), currentKingSquare.getY());
 		for (int i = 0; i < demands.size() - 1; i++){
 			//we do not check last demand as it points to the spot, where stands our king
@@ -134,7 +138,7 @@ public class Board {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Method used to check if tested move follows all the rules, checks what the situation on the chessboard
 	 * will look like after making the move, but then restores previous state of the board
@@ -153,14 +157,14 @@ public class Board {
 		undoLastMove();
 		return true;
 	}
-	
+
 	/**
 	 * changes current colour to opposite value
 	 */
 	private void changeCurrentColour() {
 		currentColour = (currentColour == PieceColour.WHITE) ? PieceColour.BLACK : PieceColour.WHITE;
 	}
-	
+
 	/**
 	 * counts all opponent's figures that attack current players king
 	 * @return
@@ -178,7 +182,7 @@ public class Board {
 		}
 		return count;
 	}
-	
+
 	/**
 	 * checks only if move is valid and follows rules, does not check situation on the board
 	 * after this partcular move
@@ -195,14 +199,14 @@ public class Board {
 		return figure != null && figure.validateMove(fromX, fromY, toX, toY)
 				&& validateDemands(figure.generateInterveningFields(fromX, fromY, toX, toY));
 	}
-	
+
 	/**
 	 * moves figure (changes references in chessboard[][])
 	 * @param from : source square for move
 	 * @param to : destination square
 	 */
 	private void moveFigure(Square from, Square to) {
-		MoveDetails currentMove = new MoveDetails(from, to, chessboard[from.getY()][from.getX()], 
+		MoveDetails currentMove = new MoveDetails(from, to, chessboard[from.getY()][from.getX()],
 												  chessboard[to.getY()][to.getX()]);
 		lastMove = currentMove;
 		chessboard[to.getY()][to.getX()] = chessboard[from.getY()][from.getX()];
@@ -212,7 +216,7 @@ public class Board {
 		else if(currentColour == PieceColour.WHITE && whiteKingPosition.getX() == from.getX() && whiteKingPosition.getY() == from.getY())
 			whiteKingPosition = to;
 	}
-	
+
 	/**
 	 * changes the chessboard to the state before last move
 	 */
@@ -224,19 +228,19 @@ public class Board {
 		if(currentColour == PieceColour.WHITE && whiteKingPosition.getX() == lastMove.getTo().getX() && whiteKingPosition.getY() == lastMove.getTo().getY())
 			whiteKingPosition = lastMove.getFrom();
 	}
-	
+
 	/**
-	 * checks list of demands created by figure which are mandatory for move 
+	 * checks list of demands created by figure which are mandatory for move
 	 * @param demands list of demands that needs to be checked
 	 * @return result of validation demands, true if all are fullfilled
 	 */
 	private boolean validateDemands(ArrayList<MoveDemands> demands) {
 		for (int i = 0; i < demands.size(); i++)
-			if(! checkColourDemand(demands.get(i)) || !checkMovedStatusDemand(demands.get(i))) 
+			if(! checkColourDemand(demands.get(i)) || !checkMovedStatusDemand(demands.get(i)))
 				return false;
 		return true;
 	}
-	
+
 	/**
 	 * checks single colour demand
 	 * @param demand : demand that needs to be checked
@@ -257,7 +261,7 @@ public class Board {
 		else
 			return chessboard[y][x] == null || chessboard[y][x].getColour() != PieceColour.WHITE;
 	}
-	
+
 	/**
 	 * checks single moved status demand
 	 * @param demand : demand that needs to be checked
@@ -267,11 +271,11 @@ public class Board {
 		int x = demand.getxCoordinate();
 		int y = demand.getyCoordinate();
 		MovedStatusDemand movedStatus = demand.getMovedStatusNeeded();
-		return (movedStatus == MovedStatusDemand.NO_DEMAND) || 
-				(chessboard[y][x] != null && movedStatus == MovedStatusDemand.NOT_MOVED 
+		return (movedStatus == MovedStatusDemand.NO_DEMAND) ||
+				(chessboard[y][x] != null && movedStatus == MovedStatusDemand.NOT_MOVED
 					&& !(chessboard[y][x].getMovedStatus()));
 	}
-	
+
 	private Piece chessboard[][];
 	private Piece.PieceColour currentColour;
 	private MoveDetails lastMove;
