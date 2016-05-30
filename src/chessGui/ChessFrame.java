@@ -68,7 +68,17 @@ public class ChessFrame extends JFrame{
 	}
 	
 	public void drawMove(Square from, Square to) {
-		chessBoard[to.getY()][to.getX()].setIcon(chessBoard[from.getY()][from.getX()].getIcon());
+		if (!board.isPawnPromotion())
+			chessBoard[to.getY()][to.getX()].setIcon(chessBoard[from.getY()][from.getX()].getIcon());
+
+		else if (board.isPawnPromotion() && board.getCurrentColour()== Piece.PieceColour.BLACK){
+			chessBoard[to.getY()][to.getX()].setIcon(new ImageIcon("img/wq.png"));
+			board.setPawnPromotion(false);
+		}
+		else if	(board.isPawnPromotion() && board.getCurrentColour()== Piece.PieceColour.WHITE) {
+			chessBoard[to.getY()][to.getX()].setIcon(new ImageIcon("img/bq.png"));
+			board.setPawnPromotion(false);
+		}
 		chessBoard[from.getY()][from.getX()].setIcon(null);
 	}
 

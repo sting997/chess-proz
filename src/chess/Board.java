@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import chess.MoveDemands.ColourDemand;
 import chess.MoveDemands.MovedStatusDemand;
 import chess.Piece.PieceColour;
+import javafx.util.Pair;
 
 public class Board {
 	public Board() {
@@ -32,10 +33,19 @@ public class Board {
 		whiteKingPosition = new Square(4, 7);
 		currentKingThreat = null;
 		MoveDetails lastMove = null;
+		PawnPromotion = false;
 	}
 
 	public PieceColour getCurrentColour() {
 		return currentColour;
+	}
+
+	public boolean isPawnPromotion() {
+		return PawnPromotion;
+	}
+
+	public void setPawnPromotion(boolean pawnPromotion) {
+		PawnPromotion = pawnPromotion;
 	}
 
 	/**
@@ -54,6 +64,10 @@ public class Board {
 			return false;
 		}
 		chessboard[to.getY()][to.getX()].setMovedStatus(true);
+		if(CheckPromotion(to)) {
+			chessboard[to.getY()][to.getX()] = new Queen(currentColour, false);
+			PawnPromotion = true;
+		}
 		lastMove = new MoveDetails(from, to);
 		changeCurrentColour();
 		currentKingThreat = null;
@@ -188,7 +202,7 @@ public class Board {
 	 * after this partcular move
 	 * @param from : source square for the validated move
 	 * @param to : destination square
-	 * @return true if move is valid from figure and board perspective
+	 * @return true if move is valid from  and board perspective
 	 */
 	private boolean validateMove(Square from, Square to) {
 		int fromX = from.getX();
@@ -276,10 +290,23 @@ public class Board {
 					&& !(chessboard[y][x].getMovedStatus()));
 	}
 
+	/**
+	 * check if the pawn get to last square (condition for promotion)
+	 * @param to : square where player wants to make a step a move
+	 * @return true when piece is a Pawn and piece is moved to the last line of chessboard
+     */
+	public boolean CheckPromotion (Square to){
+		if(chessboard[to.getY()][to.getX()] instanceof Pawn && (to.getY() == 0 || to.getY() == 7))
+			return true;
+		else
+			return false;
+	}
+
 	private Piece chessboard[][];
 	private Piece.PieceColour currentColour;
 	private MoveDetails lastMove;
 	private Square blackKingPosition;
 	private Square whiteKingPosition;
 	private Square currentKingThreat;
+	boolean PawnPromotion;
 }

@@ -25,7 +25,7 @@ public class Pawn extends Piece {
 			if(getMovedStatus() == false)
 				return ((toY - fromY == 2) || (toY - fromY == 1)) && (toX == fromX);
 			else
-				return (toY - fromY == 1) && abs(toY - fromY) <= 1;
+				return (toY - fromY == 1) && abs(toX - fromX) <= 1;
 		}
 	} 
 
