@@ -43,7 +43,7 @@ public class WinnerFrame extends JFrame {
         public void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D) g;
             String message = "CHECKMATE!!!";
-            String message_2 = (CurrentColour == Piece.PieceColour.WHITE) ? "WHITE WINS" : "BLACK WINS";
+            String message_2 = (CurrentColour == Piece.PieceColour.WHITE) ? "BLACK WINS" : "WHITE WINS";
             Font f = new Font("Droid Sans", Font.BOLD, 36);
             g2.setFont(f);
             FontRenderContext context = g2.getFontRenderContext();

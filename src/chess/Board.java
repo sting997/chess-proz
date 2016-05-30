@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import chess.MoveDemands.ColourDemand;
 import chess.MoveDemands.MovedStatusDemand;
 import chess.Piece.PieceColour;
-import javafx.util.Pair;
 
 public class Board {
 	public Board() {
