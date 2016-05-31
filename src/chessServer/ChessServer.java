@@ -50,7 +50,7 @@ public class ChessServer {
 			socket = s;
 		}
 		
-		public void run() {
+		public synchronized void run() {
 			try {
 				in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				out = new PrintWriter(socket.getOutputStream());

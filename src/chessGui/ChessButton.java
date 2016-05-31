@@ -2,6 +2,7 @@ package chessGui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Insets;
 
 import javax.swing.ImageIcon;
@@ -16,6 +17,8 @@ public class ChessButton extends JButton {
 		setPreferredSize(new Dimension(size, size));
 		setMargin(new Insets(0, 0, 0, 0));
 		setBackground(background);
+		setBorderPainted(false);
+		setOpaque(true);
 	}
 	
 	public ChessButton(int size, Color background) {
@@ -23,6 +26,8 @@ public class ChessButton extends JButton {
 		setPreferredSize(new Dimension(size, size));
 		setMargin(new Insets(0, 0, 0, 0));
 		setBackground(background);
+		setBorderPainted(false);
+		setOpaque(true);
 	}
 
 }
