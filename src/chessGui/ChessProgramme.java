@@ -18,7 +18,7 @@ public class ChessProgramme {
 		Board model = new Board();
 		ChessFrame view = new ChessFrame(model);
 		//LocalGameController controller = new LocalGameController(view, model);
-		Thread t = new Thread( new NetworkGameController(view, model));
+		Thread t = new Thread( new NetworkGameController(view));
 		view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		view.setVisible(true);
 		t.start();

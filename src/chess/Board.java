@@ -159,7 +159,7 @@ public class Board {
 	 * @param to
 	 * @return true if inspected move follows all chess rules
 	 */
-	public boolean tryMove(Square from, Square to) {
+	private boolean tryMove(Square from, Square to) {
 		if (chessboard[from.getY()][from.getX()].getColour() != currentColour) return false;
 		if (!validateMove(from, to)) return false;
 		moveFigure(from, to);
@@ -201,7 +201,7 @@ public class Board {
 	 * after this partcular move
 	 * @param from : source square for the validated move
 	 * @param to : destination square
-	 * @return true if move is valid from  and board perspective
+	 * @return true if move is valid from piece and board perspective
 	 */
 	private boolean validateMove(Square from, Square to) {
 		int fromX = from.getX();

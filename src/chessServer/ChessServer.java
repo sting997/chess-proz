@@ -9,12 +9,16 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import chess.Board;
 import chess.Piece.PieceColour;
+import chess.Square;
 
 
 public class ChessServer {
 	private  static final int port = 7766;
 	private static ArrayList<PrintWriter> writers = new ArrayList<PrintWriter>();
+	private static boolean bothConnected = false;
+	private static Board board = new Board();
 	
 	public static void main(String[] args) {
 		System.out.println("Server is running.");
@@ -27,9 +31,9 @@ public class ChessServer {
 				System.out.println("Connected player nr: " + players);
 				Runnable r;
 				if(players == 0) 
-					r = new ChessNetworkHandler(incoming, PieceColour.WHITE);
+					r = new ChessNetworkHandler(incoming);
 				else 
-					r = new ChessNetworkHandler(incoming, PieceColour.BLACK);
+					r = new ChessNetworkHandler(incoming);
 				Thread thread = new Thread(r);
 				thread.start();
 			}
@@ -42,12 +46,9 @@ public class ChessServer {
 		private Socket socket;
 		private BufferedReader in;
 		private PrintWriter out;
-		private PieceColour colour;
 		
-		public ChessNetworkHandler(Socket s, PieceColour c) {
+		public ChessNetworkHandler(Socket s) {
 			socket = s;
-			colour = c;
-			//run();
 		}
 		
 		public void run() {
@@ -56,48 +57,57 @@ public class ChessServer {
 				out = new PrintWriter(socket.getOutputStream());
 				
 				writers.add(out);
+				if (writers.size() == 2){
+					writers.get(0).println("Activated: W");
+					writers.get(0).flush();
+					System.out.println("Server: Activated: W");
+					writers.get(1).println("Activated: B");
+					writers.get(1).flush();
+					System.out.println("Server: Activated: B");
+					bothConnected = true;
+				}
 				
 				while (true) {
-					//read message
-                    String input = in.readLine();
-                    if (input == null) {
-                        return;
-                    }
-                    System.out.println("Received: " + input);
-                    
-                    //send message to opposite player
-                    //PieceColour lastMessageAuthor = decodeColourFromMessage(input);
-                    //PrintWriter writer = (lastMessageAuthor == PieceColour.WHITE) ? writers.get(1) : writers.get(0);
-                    for (PrintWriter writer : writers){
-                    	writer.println(input);
-                    	System.out.println("Sent: " + input);
-                    	writer.flush();
-                    }
-                    	
+					if (bothConnected) {
+						//read message
+				        String input = in.readLine();
+				        if (input == null) {
+				            return;
+				        }
+				        System.out.println("Received: " + input);
+				        
+				        //decode last message
+				        PieceColour requestColour = Decoder.decodeColourFromMessage(input);
+				        Square from = Decoder.decodeFrom(input);
+				        Square to = Decoder.decodeTo(input);
+				        //validate move and notify all if was valid
+				        if (requestColour == board.getCurrentColour() && board.tryAndExecuteMove(from, to)){
+				        	for (PrintWriter writer : writers){
+					        	writer.println(input);
+					        	System.out.println("Sent: " + input);
+					        	writer.flush();
+				        	}
+				        }
+					}   	
                 }
-			} catch (IOException e) {
+			} 
+			catch (IOException e) {
 				e.printStackTrace();
-			}finally{
+			}
+			finally{
 				if (out != null) {
                     writers.remove(out);
                 }
                 try {
                     socket.close();
-                } catch (IOException e) {
+                } 
+                catch (IOException e) {
                 }
 			}
 			
 		}
 		
-		/**
-		 * Detects who send message
-		 * @param message
-		 * @return colour of sender
-		 */
-		private PieceColour decodeColourFromMessage(String message) {
-			PieceColour result = message.startsWith("W") ? PieceColour.WHITE : PieceColour.BLACK;
-			return result;
-		}
+		
 	}
 	
 }
