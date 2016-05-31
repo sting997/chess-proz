@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.lang.management.ThreadMXBean;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import chess.Square;
 public class ChessServer {
 	private  static final int port = 7766;
 	private static ArrayList<PrintWriter> writers = new ArrayList<PrintWriter>();
-	private static boolean bothConnected = false;
+	private static volatile boolean bothConnected = false;
 	private static Board board = new Board();
 	
 	public static void main(String[] args) {
@@ -88,7 +87,26 @@ public class ChessServer {
 					        	writer.flush();
 				        	}
 				        }
-					}   	
+				        if (board.CheckPromotion() != null){
+				        	Square promoted = board.CheckPromotion();
+			        		board.performPawnPromotion(promoted);
+			        		input = "Promotion: " + promoted.getX() + promoted.getY();
+				        	for (PrintWriter writer : writers){
+					        	writer.println(input);
+					        	System.out.println("Sent: " + input);
+					        	writer.flush();
+				        	}
+				        }
+				        if (board.checkmateExaminator()){
+				        	String winner = (board.getCurrentColour() == PieceColour.WHITE) ? "W" : "B";
+			        		input = "Checkmate: " + winner;
+				        	for (PrintWriter writer : writers){				        		
+					        	writer.println(input);
+					        	System.out.println("Sent: " + input);
+					        	writer.flush();
+				        	}
+				        }
+					}  	
                 }
 			} 
 			catch (IOException e) {
@@ -106,8 +124,5 @@ public class ChessServer {
 			}
 			
 		}
-		
-		
 	}
-	
 }

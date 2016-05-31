@@ -43,8 +43,9 @@ public class Board {
 		return PawnPromotion;
 	}
 
-	public void setPawnPromotion(boolean pawnPromotion) {
-		PawnPromotion = pawnPromotion;
+	public void performPawnPromotion(Square promoted) {
+		PieceColour colour = (promoted.getY() == 0) ? PieceColour.WHITE : PieceColour.BLACK;
+		chessboard[promoted.getY()][promoted.getX()] = new Queen(colour, true);
 	}
 
 	/**
@@ -63,10 +64,10 @@ public class Board {
 			return false;
 		}
 		chessboard[to.getY()][to.getX()].setMovedStatus(true);
-		if(CheckPromotion(to)) {
-			chessboard[to.getY()][to.getX()] = new Queen(currentColour, false);
-			PawnPromotion = true;
-		}
+//		if(CheckPromotion(to)) {
+//			chessboard[to.getY()][to.getX()] = new Queen(currentColour, false);
+//			PawnPromotion = true;
+//		}
 		lastMove = new MoveDetails(from, to);
 		changeCurrentColour();
 		currentKingThreat = null;
@@ -291,14 +292,17 @@ public class Board {
 
 	/**
 	 * check if the pawn get to last square (condition for promotion)
-	 * @param to : square where player wants to make a step a move
-	 * @return true when piece is a Pawn and piece is moved to the last line of chessboard
+	 * @return null when there is no promotion or square, on which figure will be promoted
      */
-	public boolean CheckPromotion (Square to){
-		if(chessboard[to.getY()][to.getX()] instanceof Pawn && (to.getY() == 0 || to.getY() == 7))
-			return true;
-		else
-			return false;
+	public Square CheckPromotion (){
+		for(int i = 0; i < 8; i++)
+			if(chessboard[0][i] instanceof Pawn)
+				return new Square(i, 0) ;
+		for(int i = 0; i < 8; i++)
+			if(chessboard[7][i] instanceof Pawn)
+				return new Square(i, 7) ;
+		
+			return null;
 	}
 
 	private Piece chessboard[][];

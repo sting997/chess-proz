@@ -21,10 +21,10 @@ public class ChessFrame extends JFrame{
 	private ChessButton chessBoard[][] = new ChessButton[8][8];
 	private Color color1 = Color.WHITE;
 	private Color color2 = new Color(139, 69, 19);
-	private Board board;
+	//private Board board;
 
-	public ChessFrame(Board b){
-		board = b;
+	public ChessFrame(){
+		//board = b;
 		Color current = color2;
         buttonPanel = new JPanel(new GridLayout(8, 8));
         buttonPanel.setBackground(Color.BLACK);
@@ -68,18 +68,25 @@ public class ChessFrame extends JFrame{
 	}
 	
 	public void drawMove(Square from, Square to) {
-		if (!board.isPawnPromotion())
+//		if (!board.isPawnPromotion())
 			chessBoard[to.getY()][to.getX()].setIcon(chessBoard[from.getY()][from.getX()].getIcon());
 
-		else if (board.isPawnPromotion() && board.getCurrentColour()== Piece.PieceColour.BLACK){
-			chessBoard[to.getY()][to.getX()].setIcon(new ImageIcon("img/wq.png"));
-			board.setPawnPromotion(false);
-		}
-		else if	(board.isPawnPromotion() && board.getCurrentColour()== Piece.PieceColour.WHITE) {
-			chessBoard[to.getY()][to.getX()].setIcon(new ImageIcon("img/bq.png"));
-			board.setPawnPromotion(false);
-		}
+//		else if (board.isPawnPromotion() && board.getCurrentColour()== Piece.PieceColour.BLACK){
+//			chessBoard[to.getY()][to.getX()].setIcon(new ImageIcon("img/wq.png"));
+//			board.setPawnPromotion(false);
+//		}
+//		else if	(board.isPawnPromotion() && board.getCurrentColour()== Piece.PieceColour.WHITE) {
+//			chessBoard[to.getY()][to.getX()].setIcon(new ImageIcon("img/bq.png"));
+//			board.setPawnPromotion(false);
+//		}
 		chessBoard[from.getY()][from.getX()].setIcon(null);
+	}
+	
+	public void changePieceToQueen(Square square) {
+		if(square.getY() == 0)
+			chessBoard[square.getY()][square.getX()].setIcon(new ImageIcon("img/wq.png"));
+		else
+			chessBoard[square.getY()][square.getX()].setIcon(new ImageIcon("img/bq.png"));
 	}
 
 }

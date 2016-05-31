@@ -72,10 +72,23 @@ public class NetworkGameController  implements Runnable{
 			while (true) {
 				String line;
 				line = in.readLine();
-	            Square from = Decoder.decodeFrom(line);
-	            Square to = Decoder.decodeTo(line);
-	            frame.drawMove(from, to);
-	            //fromTaken = false;
+				if(line.startsWith("Promotion")){
+					Square promoted = Decoder.decodePromotedSquare(line);
+					frame.changePieceToQueen(promoted);
+				}
+				else if (line.startsWith("Checkmate")){
+					Wframe = new WinnerFrame(Decoder.decodeCheckmateColour(line));
+					Wframe.setVisible(true);
+					Wframe.setLocationRelativeTo(frame);
+					frame.setVisible(false);
+					frame.dispose();
+					break;
+				}
+				else{	
+		            Square from = Decoder.decodeFrom(line);
+		            Square to = Decoder.decodeTo(line);
+		            frame.drawMove(from, to);
+				}
 			} 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -111,15 +124,6 @@ public class NetworkGameController  implements Runnable{
 					fromTaken = false;
 					System.out.println("Sent " + message);
 				}
-
-				
-//				if(board.checkmateExaminator()){
-//					Wframe = new WinnerFrame(board.getCurrentColour());
-//					Wframe.setVisible(true);
-//					Wframe.setLocationRelativeTo(frame);
-//					frame.setVisible(false);
-//					frame.dispose();
-//				}
 			}
 		}
 		private Square position;

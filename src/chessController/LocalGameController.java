@@ -42,6 +42,11 @@ public class LocalGameController {
 			}
 			else fromTaken = false;
 			
+			if (board.CheckPromotion() != null){
+				Square promotedPlace = board.CheckPromotion();
+				board.performPawnPromotion(promotedPlace);
+				frame.changePieceToQueen(promotedPlace);
+			}
 			if(board.checkmateExaminator()){
 				Wframe = new WinnerFrame(board.getCurrentColour());
 				Wframe.setVisible(true);

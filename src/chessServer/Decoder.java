@@ -25,5 +25,16 @@ public class Decoder {
 		PieceColour result = message.startsWith("W") ? PieceColour.WHITE : PieceColour.BLACK;
 		return result;
 	}
+	
+	public static Square decodePromotedSquare(String message) {
+		int x = Integer.parseInt(message.substring(11, 12));
+		int y = Integer.parseInt(message.substring(12));
+		return new Square(x, y);
+	}
+	
+	public static PieceColour decodeCheckmateColour(String message) {
+		PieceColour result = message.endsWith("W") ? PieceColour.WHITE : PieceColour.BLACK;
+		return result;
+	}
 
 }
