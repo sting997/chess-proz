@@ -12,9 +12,7 @@ import chess.Piece;
 import chess.Square;
 
 public class ChessFrame extends JFrame{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private static final int DEFAULT_BUTTON_SIZE = 80;
 	private JPanel buttonPanel;

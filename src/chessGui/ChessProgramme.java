@@ -12,12 +12,13 @@ import chessController.NetworkGameController;
 public class ChessProgramme {
 
 	public static void main(String[] args) throws IOException {
+		ChessMenu menu = new ChessMenu();
 		//Board model = new Board();
-		ChessFrame view = new ChessFrame();
+		//ChessFrame view = new ChessFrame();
 		//LocalGameController controller = new LocalGameController(view, model);
-		Thread t = new Thread( new NetworkGameController(view));
+		/*Thread t = new Thread( new NetworkGameController(view));
 		view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		view.setVisible(true);
-		t.start();
+		t.start();*/
 	}
 }

@@ -9,13 +9,14 @@ import java.awt.event.ActionListener;
 import chess.Piece;
 import chess.Board;
 import chessController.LocalGameController;
+import chessController.NetworkGameController;
 
 
 public class ChessMenu extends JFrame {
 
     private MenuPanel mp;
     private Color backgroundColour = new Color(139, 69, 19);
-    private final String[] MENU={"Local Game","Network Game","Exit"};
+    private final String[] MENU = {"Local Game", "Network Game", "Exit"};
     private ImageComponent imgComponent;
 
     public ChessMenu() {
@@ -25,80 +26,101 @@ public class ChessMenu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception ex) {
         }
-        catch (Exception ex)
-        {}
-        setSize(500,500);
+        setSize(500, 500);
         mp = new MenuPanel();
-        mp.setBounds(0,225,500,250);
+        mp.setBounds(0, 225, 500, 250);
         add(mp);
-        for(int i = 0; i<MENU.length;i++)
-        {
-            JButton mb = new JButton(MENU[i]);
-            if(i==0){
-                LocalGameButtonAction localGameListener = new LocalGameButtonAction();
-                mb.addActionListener(localGameListener);
-            }
-            mb.setBounds((getWidth()-200)/2,50+32*i,200,30);
-            mp.add(mb);
+        JButton[] buttonArray = new JButton[MENU.length];
+        for (int i = 0; i < MENU.length; i++) {
+            buttonArray[i] = new JButton(MENU[i]);
+            buttonArray[i].setBounds((getWidth() - 200) / 2, 50 + 32 * i, 200, 30);
+            mp.add(buttonArray[i]);
         }
+
+        LocalGameButtonAction localGameListener = new LocalGameButtonAction();
+        buttonArray[0].addActionListener(localGameListener);
+        NetworkGameButtonAction networkGameListener = new NetworkGameButtonAction();
+        buttonArray[1].addActionListener(networkGameListener);
+        ExitButtonAction exitListener = new ExitButtonAction();
+        buttonArray[2].addActionListener(exitListener);
+
         imgComponent = new ImageComponent();
-        imgComponent.setBounds(0,0,500,500);
+        imgComponent.setBounds(0, 0, 500, 500);
         add(imgComponent);
-
-
         setVisible(true);
     }
 
-
-public class LocalGameButtonAction implements ActionListener
-{
-    @Override
-    public void actionPerformed(ActionEvent e) {
-                Board model = new Board();
-				ChessFrame view = new ChessFrame(model);
-				LocalGameController controller = new LocalGameController(view, model);
-				view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				view.setVisible(true);
+    class LocalGameButtonAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            setVisible(false);
+            dispose();
+            Board model = new Board();
+            ChessFrame view = new ChessFrame();
+            LocalGameController controller = new LocalGameController(view, model);
+            view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            view.setVisible(true);
+        }
     }
-}
-class MenuPanel extends JPanel{
-    public MenuPanel() {
-        super();
-        setLayout(null);
-        setBackground(backgroundColour);
-        setSize(250,150);
-        setVisible(true);
+
+    public class NetworkGameButtonAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            setVisible(false);
+            dispose();
+            ChessFrame view = new ChessFrame();
+            Thread t = new Thread(new NetworkGameController(view));
+            view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            view.setVisible(true);
+            t.start();
+        }
     }
-    public void paintComponent(Graphics g){
-        Graphics2D g2 = (Graphics2D) g;
-        String message = new String("Chess Game");
-        Font f =new Font ("Verdana",Font.BOLD,42);
-        g2.setFont(f);
-        g2.setPaint(Color.BLACK);
-        g2.drawString(message,110,200);
-
+     class ExitButtonAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            setVisible(false);
+            dispose();
+        }
     }
-}
-class ImageComponent extends JPanel {
+    class MenuPanel extends JPanel {
+        public MenuPanel() {
+            super();
+            setLayout(null);
+            setBackground(backgroundColour);
+            setSize(250, 150);
+            setVisible(true);
+        }
 
-    private static final int WIDTH = 500;
-    private static final int HEIGHT = 250;
-    private Image img;
-
-    public ImageComponent() {
-        this.img = new ImageIcon("img/chss.png").getImage();
-        setLayout(null);
-        setSize(WIDTH,HEIGHT);
-        setBackground(backgroundColour);
-        setVisible(true);
-
+        public void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g;
+            String message = new String("Chess Game");
+            Font f = new Font("Verdana", Font.BOLD, 42);
+            g2.setFont(f);
+            g2.setPaint(Color.BLACK);
+            g2.drawString(message, 110, 200);
+        }
     }
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(img, 125, 0, null);
-        setBackground(backgroundColour);
-    }
-}
 
+    class ImageComponent extends JPanel {
+
+        private static final int WIDTH = 500;
+        private static final int HEIGHT = 250;
+        private Image img;
+
+        public ImageComponent() {
+            this.img = new ImageIcon("img/chss.png").getImage();
+            setLayout(null);
+            setSize(WIDTH, HEIGHT);
+            setBackground(backgroundColour);
+            setVisible(true);
+        }
+
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(img, 125, 0, null);
+            setBackground(backgroundColour);
+        }
+    }
 }
