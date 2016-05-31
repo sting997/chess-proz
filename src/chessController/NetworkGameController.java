@@ -36,7 +36,7 @@ public class NetworkGameController  implements Runnable{
 				frame.addActionListener(i, j, new ButtonAction(new Square(j, i)));
 	}
 	
-	public void run() {
+	public synchronized void  run() {
 		//establish connection
         String serverAddress = getServerAddress();
         Socket socket;
