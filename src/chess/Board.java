@@ -159,7 +159,7 @@ public class Board {
 	 * @param to
 	 * @return true if inspected move follows all chess rules
 	 */
-	private boolean tryMove(Square from, Square to) {
+	public boolean tryMove(Square from, Square to) {
 		if (chessboard[from.getY()][from.getX()].getColour() != currentColour) return false;
 		if (!validateMove(from, to)) return false;
 		moveFigure(from, to);
