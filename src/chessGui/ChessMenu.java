@@ -6,12 +6,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import chess.Piece;
 import chess.Board;
 import chessController.LocalGameController;
 import chessController.NetworkGameController;
 
-
+/**
+ * class responsible for creating startup menu with choise between local and network game
+ * @author michal
+ *
+ */
 public class ChessMenu extends JFrame {
 
     private MenuPanel mp;

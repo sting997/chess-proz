@@ -10,13 +10,18 @@ import java.net.Socket;
 
 import javax.swing.JOptionPane;
 
-import chess.Board;
 import chess.Square;
 import chessGui.ChessFrame;
 import chessGui.WinnerFrame;
 import chessServer.Decoder;
-
-public class NetworkGameController  implements Runnable{
+/**
+ * class responsible for creating network client, connecting to server
+ * and sending to server messages containing moves created by user
+ * by clicking in the users's gui
+ * @author michal
+ *
+ */
+public class NetworkGameController  implements Runnable { 
 	private BufferedReader in;
 	private PrintWriter out;
 	private ChessFrame frame;

@@ -8,6 +8,11 @@ import chess.Square;
 import chessGui.ChessFrame;
 import chessGui.WinnerFrame;
 
+/**
+ * class providing controller for local game
+ * @author michal
+ *
+ */
 public class LocalGameController {
 	private ChessFrame frame;
 	private Board board;
@@ -15,6 +20,7 @@ public class LocalGameController {
 	private Square to;
 	private boolean fromTaken;
 	private WinnerFrame  Wframe;
+	
 	public LocalGameController(ChessFrame view, Board model) {
 		frame = view;
 		board = model;

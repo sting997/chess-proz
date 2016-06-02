@@ -2,15 +2,17 @@ package chessGui;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import chess.Board;
-import chess.Piece;
 import chess.Square;
 
+/**
+ * class representing gui for the player
+ * @author michal
+ *
+ */
 public class ChessFrame extends JFrame{
 
 	private static final long serialVersionUID = 1L;
@@ -19,10 +21,9 @@ public class ChessFrame extends JFrame{
 	private ChessButton chessBoard[][] = new ChessButton[8][8];
 	private Color color1 = Color.WHITE;
 	private Color color2 = new Color(139, 69, 19);
-	//private Board board;
+	
 
 	public ChessFrame(){
-		//board = b;
 		Color current = color2;
         buttonPanel = new JPanel(new GridLayout(8, 8));
         buttonPanel.setBackground(Color.BLACK);
@@ -65,11 +66,21 @@ public class ChessFrame extends JFrame{
 		chessBoard[i][j].addActionListener(listener);
 	}
 	
+	/**
+	 * performs move on the gui
+	 * @param from figure which is moved
+	 * @param to destination square
+	 */
 	public void drawMove(Square from, Square to) {
 		chessBoard[to.getY()][to.getX()].setIcon(chessBoard[from.getY()][from.getX()].getIcon());
 		chessBoard[from.getY()][from.getX()].setIcon(null);
 	}
 	
+	/**
+	 * method used to repaint square by changing its image to queen
+	 * used only during promotion of pawn
+	 * @param square
+	 */
 	public void changePieceToQueen(Square square) {
 		if(square.getY() == 0)
 			chessBoard[square.getY()][square.getX()].setIcon(new ImageIcon("img/wq.png"));

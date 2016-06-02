@@ -6,6 +6,12 @@ import chess.MoveDemands.ColourDemand;
 import chess.MoveDemands.MovedStatusDemand;
 import chess.Piece.PieceColour;
 
+/**
+ * class providing all game logic
+ * provides method for detecting checkmate, pawn promotion, move validation and more
+ * @author michal
+ *
+ */
 public class Board {
 	public Board() {
 		currentColour = PieceColour.WHITE;
@@ -32,17 +38,21 @@ public class Board {
 		whiteKingPosition = new Square(4, 7);
 		currentKingThreat = null;
 		MoveDetails lastMove = null;
-		PawnPromotion = false;
 	}
 
+	/**
+	 * simple getter for current players colour
+	 * @return
+	 */
 	public PieceColour getCurrentColour() {
 		return currentColour;
 	}
 
-	public boolean isPawnPromotion() {
-		return PawnPromotion;
-	}
-
+	
+	/**
+	 * method changing pawn to queen because of promotion
+	 * @param promoted
+	 */
 	public void performPawnPromotion(Square promoted) {
 		PieceColour colour = (promoted.getY() == 0) ? PieceColour.WHITE : PieceColour.BLACK;
 		chessboard[promoted.getY()][promoted.getX()] = new Queen(colour, true);
@@ -64,16 +74,17 @@ public class Board {
 			return false;
 		}
 		chessboard[to.getY()][to.getX()].setMovedStatus(true);
-//		if(CheckPromotion(to)) {
-//			chessboard[to.getY()][to.getX()] = new Queen(currentColour, false);
-//			PawnPromotion = true;
-//		}
 		lastMove = new MoveDetails(from, to);
 		changeCurrentColour();
 		currentKingThreat = null;
 		return true;
 	}
-
+	
+	/**
+	 * checks if player who wants to move figure can do it
+	 * @param s figure's position
+	 * @return validation result
+	 */
 	public boolean examineFigureOwner(Square s) {
 		return chessboard[s.getY()][s.getX()] != null && chessboard[s.getY()][s.getX()].getColour() == currentColour;
 	}

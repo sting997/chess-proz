@@ -1,5 +1,11 @@
 package chess;
 
+/**
+ * class representing demand from the figure to the chessboard
+ * which is obligatory for the move to be valid
+ * @author michal
+ *
+ */
 public class MoveDemands {
 	public enum ColourDemand {EMPTY, NOT_WHITE, NOT_BLACK, BLACK, WHITE};
 	public enum MovedStatusDemand {NOT_MOVED, NO_DEMAND};

@@ -1,5 +1,10 @@
 package chess;
 
+/**
+ * class representing details of particular move
+ * @author michal
+ *
+ */
 public class MoveDetails {
 	
 	public MoveDetails(Square from, Square to, Piece movedFigure, Piece killedFigure) {

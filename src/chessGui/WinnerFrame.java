@@ -7,6 +7,12 @@ import java.awt.event.ActionListener;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 
+/**
+ * frame showed to player after the end of the game
+ * gives player game result info on the screen
+ * @author michal
+ *
+ */
 public class WinnerFrame extends JFrame {
     private JPanel buttonPanel;
     private Color backgroundColour = new Color(139, 69, 19);

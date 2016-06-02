@@ -1,6 +1,10 @@
 package chess;
 
 import java.util.*;
+/**
+ * abstract class extended by all figures
+ * provides some abstract methods for move validation ect
+ */
 import chess.MoveDemands;
 import chess.MoveDemands.ColourDemand;
 public abstract class Piece 

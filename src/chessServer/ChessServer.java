@@ -12,13 +12,25 @@ import chess.Board;
 import chess.Piece.PieceColour;
 import chess.Square;
 
-
+/**
+ * class providing chess server
+ * server enables connection betweend two players at one moment
+ * it is responsible for analysing messages from players and validating moves
+ * after getting valid move server notifies all clients about the move
+ * @author michal
+ *
+ */
 public class ChessServer {
 	private  static final int port = 7766;
 	private static ArrayList<PrintWriter> writers = new ArrayList<PrintWriter>();
 	private static volatile boolean bothConnected = false;
 	private static Board board = new Board();
 	
+	/**
+	 * main function of the server
+	 * connects two players and creates network handlers for them
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		System.out.println("Server is running.");
 		try {
@@ -49,7 +61,9 @@ public class ChessServer {
 		public ChessNetworkHandler(Socket s) {
 			socket = s;
 		}
-		
+		/**
+		 * method that handles client connection to server
+		 */
 		public synchronized void run() {
 			try {
 				in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -79,6 +93,7 @@ public class ChessServer {
 				        PieceColour requestColour = Decoder.decodeColourFromMessage(input);
 				        Square from = Decoder.decodeFrom(input);
 				        Square to = Decoder.decodeTo(input);
+				        
 				        //validate move and notify all if was valid
 				        if (requestColour == board.getCurrentColour() && board.tryAndExecuteMove(from, to)){
 				        	for (PrintWriter writer : writers){

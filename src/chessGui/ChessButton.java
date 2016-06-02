@@ -2,12 +2,16 @@ package chessGui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Insets;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+/**
+ * class representing graphically a field of the chessboard
+ * @author michal
+ *
+ */
 public class ChessButton extends JButton {
 	
 	private static final long serialVersionUID = 1L;
