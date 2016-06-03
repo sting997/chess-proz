@@ -53,6 +53,7 @@ public class ChessMenu extends JFrame {
         imgComponent.setBounds(0, 0, 500, 500);
         add(imgComponent);
         setVisible(true);
+        setResizable(false);
     }
 
     class LocalGameButtonAction implements ActionListener {

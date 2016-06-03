@@ -31,6 +31,7 @@ public class WinnerFrame extends JFrame {
         buttonPanel.add(exitButton);
         buttonPanel.setBackground(backgroundColour);
         add(buttonPanel, BorderLayout.SOUTH);
+        setResizable(false);
     }
 
     public class ExitButtonAction implements ActionListener {
