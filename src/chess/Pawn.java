@@ -17,13 +17,13 @@ public class Pawn extends Piece {
 	public boolean validateMove(int fromX, int fromY, int toX, int toY) {	
 		if(getColour()==PieceColour.WHITE){ 
 			if(getMovedStatus() == false)
-				return ((fromY - toY == 2) || (fromY - toY == 1))  && (toX == fromX);
+				return ((fromY - toY == 2) && (toX == fromX)) || ((fromY - toY == 1)  && abs(toX - fromX) <= 1);
 			else
 				return (fromY - toY == 1) && abs(toX - fromX) <= 1;
 		}
 		else{
 			if(getMovedStatus() == false)
-				return ((toY - fromY == 2) || (toY - fromY == 1)) && (toX == fromX);
+				return ((toY - fromY == 2) && (toX == fromX)) || ((toY - fromY == 1) && abs(toX - fromX) <= 1);
 			else
 				return (toY - fromY == 1) && abs(toX - fromX) <= 1;
 		}
